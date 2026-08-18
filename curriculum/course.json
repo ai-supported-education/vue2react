@@ -1,0 +1,1314 @@
+{
+  "version": 1,
+  "language": "ru",
+  "audience": "Vue 3 Composition API and TypeScript developer",
+  "estimatedHours": {
+    "min": 90,
+    "max": 105
+  },
+  "sessionPolicy": {
+    "minMinutes": 30,
+    "maxMinutes": 60,
+    "singleActiveSession": true,
+    "dependencyMode": "linear-by-default",
+    "startState": "green",
+    "finishState": "green"
+  },
+  "modules": [
+    {
+      "id": "01",
+      "slug": "react-mental-model",
+      "title": "Ментальная модель React",
+      "goal": "Понять, на какие изменения реагирует React и почему его модель отличается от dependency tracking во Vue.",
+      "fsdMode": "awareness",
+      "sessions": [
+        {
+          "id": "01-01",
+          "title": "UI как snapshot рендера",
+          "minutes": 35,
+          "kind": "observe",
+          "outcome": "Предсказывать, какие значения и обработчики принадлежат конкретному рендеру.",
+          "done": "Все прогнозы в интерактивном примере объяснены через snapshot, а проверочный quiz пройден.",
+          "checks": ["quiz"]
+        },
+        {
+          "id": "01-02",
+          "title": "Изменение state как сигнал",
+          "minutes": 40,
+          "kind": "complete",
+          "outcome": "Отличать изменение обычной переменной от запроса нового рендера через setter.",
+          "done": "Счётчик обновляет UI только через state, типы и поведенческий тест проходят.",
+          "checks": ["typecheck", "unit"]
+        },
+        {
+          "id": "01-03",
+          "title": "Почему мутация не обновляет UI",
+          "minutes": 45,
+          "kind": "debug",
+          "outcome": "Находить прямую мутацию объекта state и объяснять, почему React её не замечает.",
+          "done": "Профиль редактируется иммутабельно, предыдущий snapshot не изменяется, тест проходит.",
+          "checks": ["typecheck", "unit"]
+        },
+        {
+          "id": "01-04",
+          "title": "Batching и функциональный updater",
+          "minutes": 40,
+          "kind": "debug",
+          "outcome": "Использовать updater-функцию, когда следующее значение зависит от предыдущего.",
+          "done": "Одна команда увеличивает счётчик три раза и объяснение не опирается на синхронную мутацию.",
+          "checks": ["unit", "review"]
+        },
+        {
+          "id": "01-05",
+          "title": "Snapshot в асинхронном обработчике",
+          "minutes": 45,
+          "kind": "observe",
+          "outcome": "Понимать, почему callback видит значения рендера, в котором был создан.",
+          "done": "Поведение отложенной отправки предсказано и исправлено согласно условию без лишнего effect.",
+          "checks": ["unit", "review"]
+        },
+        {
+          "id": "01-06",
+          "title": "React и Vue: карта реактивности",
+          "minutes": 50,
+          "kind": "compare",
+          "outcome": "Сопоставлять state, derived values и watchers без ложного переноса Vue-модели.",
+          "done": "Для шести сценариев выбран React-механизм и письменно объяснено отличие от Vue.",
+          "checks": ["quiz", "review"]
+        }
+      ]
+    },
+    {
+      "id": "02",
+      "slug": "jsx-components-props",
+      "title": "JSX, компоненты и props",
+      "goal": "Освоить декларативную композицию React-компонентов и границы JSX.",
+      "fsdMode": "awareness",
+      "sessions": [
+        {
+          "id": "02-01",
+          "title": "Выражения внутри JSX",
+          "minutes": 35,
+          "kind": "complete",
+          "outcome": "Правильно размещать JavaScript-выражения, attributes и children в JSX.",
+          "done": "Карточка выводит все вычисляемые поля без ручной работы с DOM.",
+          "checks": ["typecheck", "unit"]
+        },
+        {
+          "id": "02-02",
+          "title": "Компонент вместо шаблона",
+          "minutes": 40,
+          "kind": "build",
+          "outcome": "Воспринимать компонент как вычисление UI, а не как изменяемый экземпляр шаблона.",
+          "done": "Независимый StatusBadge реализован функцией и проходит три поведенческих сценария.",
+          "checks": ["typecheck", "unit"]
+        },
+        {
+          "id": "02-03",
+          "title": "Readonly props и defaults",
+          "minutes": 45,
+          "kind": "complete",
+          "outcome": "Проектировать минимальный readonly props-контракт с осмысленными defaults.",
+          "done": "Компонент принимает только заявленные варианты и не мутирует входные данные.",
+          "checks": ["typecheck", "unit"]
+        },
+        {
+          "id": "02-04",
+          "title": "Композиция через children",
+          "minutes": 45,
+          "kind": "refactor",
+          "outcome": "Заменять разрастающиеся флаги композицией и явными слотами React.",
+          "done": "Panel поддерживает header, content и actions без специальных boolean props.",
+          "checks": ["typecheck", "unit", "review"]
+        },
+        {
+          "id": "02-05",
+          "title": "Условный UI",
+          "minutes": 50,
+          "kind": "build",
+          "outcome": "Выбирать ранний return, тернарное выражение или логическое условие по структуре UI.",
+          "done": "Empty, loading и content состояния взаимоисключающи и проверяются через доступный UI.",
+          "checks": ["unit", "a11y"]
+        },
+        {
+          "id": "02-06",
+          "title": "Составной информационный блок",
+          "minutes": 55,
+          "kind": "integrate",
+          "outcome": "Собрать небольшой UI из нескольких компонентов с чистыми контрактами.",
+          "done": "DeviceSummary собран из переиспользуемых частей, не содержит дублирования и проходит интеграционный тест.",
+          "checks": ["typecheck", "lint", "integration", "review"]
+        }
+      ]
+    },
+    {
+      "id": "03",
+      "slug": "state-and-events",
+      "title": "State и события",
+      "goal": "Научиться моделировать локальное состояние и переходы между его состояниями.",
+      "fsdMode": "awareness",
+      "sessions": [
+        {
+          "id": "03-01",
+          "title": "State против локальной переменной",
+          "minutes": 35,
+          "kind": "debug",
+          "outcome": "Распознавать данные, которые должны переживать рендер и вызывать новый UI.",
+          "done": "Переключатель сохраняет значение между рендерами и не использует модульную переменную.",
+          "checks": ["unit"]
+        },
+        {
+          "id": "03-02",
+          "title": "Событие как намерение",
+          "minutes": 45,
+          "kind": "build",
+          "outcome": "Отделять DOM event от предметного callback-контракта компонента.",
+          "done": "Кнопка подтверждения сообщает намерение родителю без передачи DOM event наружу.",
+          "checks": ["typecheck", "unit"]
+        },
+        {
+          "id": "03-03",
+          "title": "Форма state",
+          "minutes": 45,
+          "kind": "refactor",
+          "outcome": "Устранять противоречивые boolean-флаги с помощью явного состояния.",
+          "done": "AsyncPanel использует взаимоисключающую модель idle/loading/success/error.",
+          "checks": ["typecheck", "unit", "review"]
+        },
+        {
+          "id": "03-04",
+          "title": "Иммутабельное обновление массива",
+          "minutes": 50,
+          "kind": "debug",
+          "outcome": "Добавлять, удалять и обновлять элементы без мутации массива и его элементов.",
+          "done": "Редактор списка сохраняет прошлые snapshots и проходит тест add/edit/remove.",
+          "checks": ["unit"]
+        },
+        {
+          "id": "03-05",
+          "title": "Не хранить derived state",
+          "minutes": 45,
+          "kind": "refactor",
+          "outcome": "Вычислять данные во время рендера, если их можно получить из существующих props/state.",
+          "done": "Дублированное состояние удалено, фильтр остаётся корректным после всех изменений.",
+          "checks": ["unit", "review"]
+        },
+        {
+          "id": "03-06",
+          "title": "Переходы через useReducer",
+          "minutes": 55,
+          "kind": "build",
+          "outcome": "Применять reducer для нескольких связанных переходов, а не как замену любому useState.",
+          "done": "Модель draft/submitting/success/failure имеет исчерпывающие actions и тест reducer.",
+          "checks": ["typecheck", "unit", "review"]
+        }
+      ]
+    },
+    {
+      "id": "04",
+      "slug": "identity-controlled-ui",
+      "title": "Identity, коллекции и controlled UI",
+      "goal": "Понять сохранение component state и передачу владения состоянием.",
+      "fsdMode": "awareness",
+      "sessions": [
+        {
+          "id": "04-01",
+          "title": "Key как identity",
+          "minutes": 35,
+          "kind": "observe",
+          "outcome": "Предсказывать сохранение state при reorder и объяснять роль key.",
+          "done": "Все сценарии reorder сопоставлены с правильным поведением локального state.",
+          "checks": ["quiz"]
+        },
+        {
+          "id": "04-02",
+          "title": "Редактируемый список",
+          "minutes": 45,
+          "kind": "build",
+          "outcome": "Поддерживать стабильную identity элементов при add/edit/remove.",
+          "done": "Фокус и редактируемое значение не перескакивают после удаления соседнего элемента.",
+          "checks": ["unit"]
+        },
+        {
+          "id": "04-03",
+          "title": "Controlled input",
+          "minutes": 45,
+          "kind": "complete",
+          "outcome": "Связывать value и onChange без второго источника истины.",
+          "done": "Поле управляется родительским state и корректно реагирует на внешний reset.",
+          "checks": ["unit"]
+        },
+        {
+          "id": "04-04",
+          "title": "Подъём state",
+          "minutes": 50,
+          "kind": "refactor",
+          "outcome": "Размещать state у ближайшего общего владельца согласованных компонентов.",
+          "done": "Два фильтра синхронизированы одним источником истины без context или store.",
+          "checks": ["unit", "review"]
+        },
+        {
+          "id": "04-05",
+          "title": "Сохранить или сбросить state",
+          "minutes": 50,
+          "kind": "debug",
+          "outcome": "Управлять reset через position и key вместо effect.",
+          "done": "Форма сбрасывается только при смене выбранной сущности.",
+          "checks": ["unit", "review"]
+        },
+        {
+          "id": "04-06",
+          "title": "Поиск по каталогу",
+          "minutes": 55,
+          "kind": "integrate",
+          "outcome": "Объединить identity, controlled inputs и derived filtering.",
+          "done": "Каталог ищется, сортируется и редактируется без рассинхронизации state.",
+          "checks": ["typecheck", "lint", "integration"]
+        }
+      ]
+    },
+    {
+      "id": "05",
+      "slug": "effects",
+      "title": "Effects и внешние системы",
+      "goal": "Использовать effect только для синхронизации с системами вне React.",
+      "fsdMode": "awareness",
+      "sessions": [
+        {
+          "id": "05-01",
+          "title": "Effect не равен watch",
+          "minutes": 35,
+          "kind": "compare",
+          "outcome": "Отличать синхронизацию с внешней системой от вычисления данных и реакции на событие.",
+          "done": "В восьми сценариях effect используется только там, где есть внешний процесс.",
+          "checks": ["quiz", "review"]
+        },
+        {
+          "id": "05-02",
+          "title": "Синхронизация с browser API",
+          "minutes": 45,
+          "kind": "complete",
+          "outcome": "Подписывать React state на внешний browser API и явно описывать зависимости.",
+          "done": "Компонент корректно отражает online/offline состояние.",
+          "checks": ["unit"]
+        },
+        {
+          "id": "05-03",
+          "title": "Cleanup подписки",
+          "minutes": 50,
+          "kind": "debug",
+          "outcome": "Гарантировать симметричные setup и cleanup при mount, update и unmount.",
+          "done": "Повторный mount не создаёт дублирующих listeners, тест утечки проходит.",
+          "checks": ["unit"]
+        },
+        {
+          "id": "05-04",
+          "title": "Dependencies и stale closure",
+          "minutes": 50,
+          "kind": "debug",
+          "outcome": "Исправлять stale closure без отключения exhaustive-deps.",
+          "done": "Interval использует актуальную конфигурацию и не пересоздаётся без причины.",
+          "checks": ["lint", "unit", "review"]
+        },
+        {
+          "id": "05-05",
+          "title": "Отмена устаревшей операции",
+          "minutes": 50,
+          "kind": "debug",
+          "outcome": "Предотвращать применение результата устаревшего асинхронного запроса.",
+          "done": "Быстрое переключение выбора не показывает ответ предыдущего запроса.",
+          "checks": ["unit"]
+        },
+        {
+          "id": "05-06",
+          "title": "Удаление лишнего effect",
+          "minutes": 55,
+          "kind": "refactor",
+          "outcome": "Заменять цепочки effects вычислением во время render или обработчиком события.",
+          "done": "Компонент не имеет дублированного state и выполняет меньше рендеров при том же поведении.",
+          "checks": ["unit", "review"]
+        }
+      ]
+    },
+    {
+      "id": "06",
+      "slug": "refs-context-hooks",
+      "title": "Refs, Context и custom hooks",
+      "goal": "Освоить escape hatches, dependency injection через Context и переиспользование stateful-логики.",
+      "fsdMode": "awareness",
+      "sessions": [
+        {
+          "id": "06-01",
+          "title": "DOM ref и focus",
+          "minutes": 35,
+          "kind": "complete",
+          "outcome": "Использовать ref для императивного действия, недоступного декларативно.",
+          "done": "После открытия диалога фокус попадает в ожидаемое поле.",
+          "checks": ["unit", "a11y"]
+        },
+        {
+          "id": "06-02",
+          "title": "Mutable ref без рендера",
+          "minutes": 45,
+          "kind": "compare",
+          "outcome": "Выбирать ref только для значения, которое не участвует в отображении.",
+          "done": "Timer хранит технический идентификатор в ref, а видимые данные — в state.",
+          "checks": ["unit", "review"]
+        },
+        {
+          "id": "06-03",
+          "title": "Context как зависимость",
+          "minutes": 50,
+          "kind": "refactor",
+          "outcome": "Убрать prop drilling для устойчивой cross-cutting зависимости.",
+          "done": "Theme dependency передаётся через типизированный provider с явной ошибкой вне provider.",
+          "checks": ["typecheck", "unit"]
+        },
+        {
+          "id": "06-04",
+          "title": "Граница обновления Context",
+          "minutes": 45,
+          "kind": "debug",
+          "outcome": "Находить широкие Context values, вызывающие ненужные обновления потребителей.",
+          "done": "Независимый потребитель не обновляется при смене несвязанного значения.",
+          "checks": ["unit", "review"]
+        },
+        {
+          "id": "06-05",
+          "title": "Контракт custom hook",
+          "minutes": 50,
+          "kind": "refactor",
+          "outcome": "Извлекать переиспользуемую stateful-логику без скрытия предметного поведения.",
+          "done": "useDisclosure используется двумя компонентами и имеет изолированный тест.",
+          "checks": ["typecheck", "unit"]
+        },
+        {
+          "id": "06-06",
+          "title": "Комбинация hook, ref и Context",
+          "minutes": 55,
+          "kind": "integrate",
+          "outcome": "Собрать доступный dialog workflow с минимальными escape hatches.",
+          "done": "Диалог открывается из Context-команды, управляет focus и восстанавливает его после закрытия.",
+          "checks": ["integration", "a11y", "review"]
+        }
+      ]
+    },
+    {
+      "id": "07",
+      "slug": "typescript-react",
+      "title": "TypeScript-контракты React",
+      "goal": "Типизировать компоненты и hooks через предметные контракты, не ослабляя типы.",
+      "fsdMode": "guided",
+      "sessions": [
+        {
+          "id": "07-01",
+          "title": "Props и event contracts",
+          "minutes": 35,
+          "kind": "complete",
+          "outcome": "Типизировать props и предметные callbacks без any и широких DOM-типов.",
+          "done": "Компонент отклоняет некорректные props на этапе typecheck.",
+          "checks": ["typecheck"]
+        },
+        {
+          "id": "07-02",
+          "title": "Discriminated union для вариантов",
+          "minutes": 45,
+          "kind": "refactor",
+          "outcome": "Представлять взаимоисключающие варианты props через union.",
+          "done": "Невозможные комбинации состояния Alert не компилируются.",
+          "checks": ["typecheck", "unit"]
+        },
+        {
+          "id": "07-03",
+          "title": "Children и render callbacks",
+          "minutes": 45,
+          "kind": "complete",
+          "outcome": "Различать ReactNode, ReactElement и функцию-ребёнка.",
+          "done": "DataState предоставляет типизированный render callback для полученных данных.",
+          "checks": ["typecheck", "unit"]
+        },
+        {
+          "id": "07-04",
+          "title": "Generic-компонент списка",
+          "minutes": 50,
+          "kind": "build",
+          "outcome": "Сохранять тип элемента через generic props без assertions.",
+          "done": "GenericList выводит два разных доменных типа и проверяет key extractor.",
+          "checks": ["typecheck", "unit"]
+        },
+        {
+          "id": "07-05",
+          "title": "Nullable refs и form events",
+          "minutes": 50,
+          "kind": "debug",
+          "outcome": "Работать с nullable DOM refs и точными event-типами без non-null assertions.",
+          "done": "Форма компилируется в strict mode и безопасно обрабатывает отсутствие DOM node.",
+          "checks": ["typecheck", "lint"]
+        },
+        {
+          "id": "07-06",
+          "title": "Типизированный hook API",
+          "minutes": 55,
+          "kind": "integrate",
+          "outcome": "Спроектировать public API hook и provider с исчерпывающими состояниями.",
+          "done": "useSelection скрывает внутреннее представление и запрещает несуществующие идентификаторы.",
+          "checks": ["typecheck", "unit", "review"]
+        }
+      ]
+    },
+    {
+      "id": "08",
+      "slug": "routing-url-state",
+      "title": "React Router и URL state",
+      "goal": "Моделировать навигацию, вложенные layouts и разделяемое состояние URL.",
+      "fsdMode": "guided",
+      "sessions": [
+        {
+          "id": "08-01",
+          "title": "Route tree и Link",
+          "minutes": 35,
+          "kind": "build",
+          "outcome": "Создать минимальное дерево маршрутов без ручного управления location.",
+          "done": "Три страницы доступны через Link и browser back/forward.",
+          "checks": ["integration"]
+        },
+        {
+          "id": "08-02",
+          "title": "Nested layout и Outlet",
+          "minutes": 45,
+          "kind": "refactor",
+          "outcome": "Выносить устойчивую оболочку группы страниц в layout route.",
+          "done": "Навигация и header сохраняются при смене дочерней страницы.",
+          "checks": ["integration"]
+        },
+        {
+          "id": "08-03",
+          "title": "Route params",
+          "minutes": 45,
+          "kind": "complete",
+          "outcome": "Валидировать params на границе страницы и обрабатывать неизвестный id.",
+          "done": "Detail page показывает сущность либо понятное not-found состояние.",
+          "checks": ["typecheck", "integration"]
+        },
+        {
+          "id": "08-04",
+          "title": "Фильтр в search params",
+          "minutes": 50,
+          "kind": "build",
+          "outcome": "Хранить разделяемые фильтры в URL без дублирования в local state.",
+          "done": "Reload и скопированная ссылка восстанавливают фильтры.",
+          "checks": ["integration"]
+        },
+        {
+          "id": "08-05",
+          "title": "Protected layout",
+          "minutes": 50,
+          "kind": "build",
+          "outcome": "Ограничивать группу маршрутов через auth-aware layout и redirect.",
+          "done": "Гость возвращается на исходный URL после успешного входа.",
+          "checks": ["integration"]
+        },
+        {
+          "id": "08-06",
+          "title": "Lazy route и route error",
+          "minutes": 55,
+          "kind": "integrate",
+          "outcome": "Добавить route-level code splitting и локализованную обработку ошибки.",
+          "done": "Тяжёлая страница загружается лениво, а ошибка не разрушает app shell.",
+          "checks": ["build", "integration", "review"]
+        }
+      ]
+    },
+    {
+      "id": "09",
+      "slug": "forms-validation",
+      "title": "Формы и валидация",
+      "goal": "Создавать доступные формы с явным schema-контрактом и обработкой server errors.",
+      "fsdMode": "guided",
+      "sessions": [
+        {
+          "id": "09-01",
+          "title": "Нативная семантика form",
+          "minutes": 35,
+          "kind": "debug",
+          "outcome": "Использовать submit, labels и buttons без ручной имитации поведения формы.",
+          "done": "Форма отправляется клавишей Enter и доступна по label.",
+          "checks": ["unit", "a11y"]
+        },
+        {
+          "id": "09-02",
+          "title": "React Hook Form registration",
+          "minutes": 45,
+          "kind": "complete",
+          "outcome": "Подключить поля к React Hook Form без дублирующего local state.",
+          "done": "Форма собирает типизированные значения и корректно сбрасывается.",
+          "checks": ["typecheck", "unit"]
+        },
+        {
+          "id": "09-03",
+          "title": "Zod-схема",
+          "minutes": 45,
+          "kind": "build",
+          "outcome": "Сделать schema единственным контрактом входных данных формы.",
+          "done": "Тип данных выведен из schema, невалидные значения блокируют submit.",
+          "checks": ["typecheck", "unit"]
+        },
+        {
+          "id": "09-04",
+          "title": "Доступные ошибки полей",
+          "minutes": 50,
+          "kind": "complete",
+          "outcome": "Связать ошибки с полями и управлять focus после неуспешной проверки.",
+          "done": "Screen reader получает ошибку, focus переходит к первому невалидному полю.",
+          "checks": ["unit", "a11y"]
+        },
+        {
+          "id": "09-05",
+          "title": "Server error при submit",
+          "minutes": 50,
+          "kind": "debug",
+          "outcome": "Различать field, form и transport errors.",
+          "done": "Конфликт имени показывается у поля, сетевой сбой — на уровне формы.",
+          "checks": ["integration", "a11y"]
+        },
+        {
+          "id": "09-06",
+          "title": "Форма создания инцидента",
+          "minutes": 55,
+          "kind": "integrate",
+          "outcome": "Собрать предметную форму с schema, conditional fields и submit states.",
+          "done": "Форма проходит happy path, validation и server-error сценарии.",
+          "checks": ["typecheck", "integration", "review"]
+        }
+      ]
+    },
+    {
+      "id": "10",
+      "slug": "server-state",
+      "title": "MSW и TanStack Query",
+      "goal": "Отделить server state от component state и освоить жизненный цикл запросов.",
+      "fsdMode": "guided",
+      "sessions": [
+        {
+          "id": "10-01",
+          "title": "Server state против client state",
+          "minutes": 35,
+          "kind": "compare",
+          "outcome": "Классифицировать ownership, freshness и cache requirements данных.",
+          "done": "Для десяти примеров выбран локальный state, URL, store или query cache.",
+          "checks": ["quiz", "review"]
+        },
+        {
+          "id": "10-02",
+          "title": "Контракт API через MSW",
+          "minutes": 45,
+          "kind": "build",
+          "outcome": "Создать повторяемый handler с success и error сценариями.",
+          "done": "Один и тот же handler работает в браузере и интеграционном тесте.",
+          "checks": ["typecheck", "integration"]
+        },
+        {
+          "id": "10-03",
+          "title": "QueryClient и query keys",
+          "minutes": 50,
+          "kind": "complete",
+          "outcome": "Организовать query keys по ресурсу и параметрам запроса.",
+          "done": "Два набора фильтров имеют независимые cache entries.",
+          "checks": ["integration"]
+        },
+        {
+          "id": "10-04",
+          "title": "Loading, empty, error и retry",
+          "minutes": 50,
+          "kind": "build",
+          "outcome": "Показать все наблюдаемые состояния запроса без boolean-конфликтов.",
+          "done": "MSW-сценарии подтверждают loading, empty, error, retry и success.",
+          "checks": ["integration", "a11y"]
+        },
+        {
+          "id": "10-05",
+          "title": "Mutation и invalidation",
+          "minutes": 55,
+          "kind": "build",
+          "outcome": "Обновлять серверные данные и инвалидировать только связанные queries.",
+          "done": "Созданный инцидент появляется после успешной mutation без полного сброса cache.",
+          "checks": ["integration"]
+        },
+        {
+          "id": "10-06",
+          "title": "Optimistic update и rollback",
+          "minutes": 55,
+          "kind": "integrate",
+          "outcome": "Безопасно применять optimistic change и восстанавливать snapshot при ошибке.",
+          "done": "Success сохраняет изменение, 409 и 500 возвращают предыдущие данные и показывают ошибку.",
+          "checks": ["integration", "review"]
+        }
+      ]
+    },
+    {
+      "id": "11",
+      "slug": "client-state-stores",
+      "title": "Context, Zustand и Redux Toolkit",
+      "goal": "Выбирать средство client state по сложности задачи, а не по привычке.",
+      "fsdMode": "guided",
+      "sessions": [
+        {
+          "id": "11-01",
+          "title": "Карта владения состоянием",
+          "minutes": 35,
+          "kind": "compare",
+          "outcome": "Выбирать local state, Context, URL, query cache или global store.",
+          "done": "Архитектурное решение для dashboard аргументировано по пяти критериям.",
+          "checks": ["quiz", "review"]
+        },
+        {
+          "id": "11-02",
+          "title": "Context и reducer как baseline",
+          "minutes": 45,
+          "kind": "build",
+          "outcome": "Оценить встроенный React-подход до подключения store-библиотеки.",
+          "done": "Небольшой selection state работает через Context/reducer и имеет тест переходов.",
+          "checks": ["typecheck", "unit"]
+        },
+        {
+          "id": "11-03",
+          "title": "Zustand store и selectors",
+          "minutes": 50,
+          "kind": "refactor",
+          "outcome": "Перенести cross-page UI state в маленький store с узкими selectors.",
+          "done": "Потребители не подписываются на весь store, поведение сохраняется.",
+          "checks": ["unit", "review"]
+        },
+        {
+          "id": "11-04",
+          "title": "Persisted UI preferences",
+          "minutes": 50,
+          "kind": "build",
+          "outcome": "Сохранять только безопасные пользовательские настройки с versioned migration.",
+          "done": "Настройки переживают reload, устаревшая версия корректно мигрирует.",
+          "checks": ["unit"]
+        },
+        {
+          "id": "11-05",
+          "title": "Redux Toolkit slice и selectors",
+          "minutes": 55,
+          "kind": "build",
+          "outcome": "Собрать строгий workflow с actions, slice и мемоизированными selectors.",
+          "done": "Workflow draft/approve/reject покрыт reducer-тестами и DevTools-readable actions.",
+          "checks": ["typecheck", "unit"]
+        },
+        {
+          "id": "11-06",
+          "title": "Нормализация и ADR выбора store",
+          "minutes": 55,
+          "kind": "compare",
+          "outcome": "Сравнить Zustand и Redux Toolkit на одинаковом доменном сценарии.",
+          "done": "Нормализованная коллекция работает, а ADR фиксирует выбранный store для capstone.",
+          "checks": ["unit", "review"]
+        }
+      ]
+    },
+    {
+      "id": "12",
+      "slug": "feature-sliced-design",
+      "title": "Feature-Sliced Design",
+      "goal": "Применять FSD как систему владения и зависимостей, а не как шаблон папок.",
+      "fsdMode": "enforced",
+      "sessions": [
+        {
+          "id": "12-01",
+          "title": "Смысл FSD-слоёв",
+          "minutes": 35,
+          "kind": "compare",
+          "outcome": "Отличать app, pages, widgets, features, entities и shared по ответственности.",
+          "done": "Двенадцать модулей разложены по слоям с объяснением предметного смысла.",
+          "checks": ["quiz", "review"]
+        },
+        {
+          "id": "12-02",
+          "title": "Page-first без преждевременного slicing",
+          "minutes": 40,
+          "kind": "review",
+          "outcome": "Оставлять одноразовую логику на page до появления причины для извлечения.",
+          "done": "Избыточная структура упрощена без потери поведения.",
+          "checks": ["fsd", "review"]
+        },
+        {
+          "id": "12-03",
+          "title": "Public API slice",
+          "minutes": 45,
+          "kind": "refactor",
+          "outcome": "Скрывать внутреннюю структуру slice за минимальным public API.",
+          "done": "Внешние imports используют public API, внутренние детали не экспортируются.",
+          "checks": ["typecheck", "fsd"]
+        },
+        {
+          "id": "12-04",
+          "title": "Направление зависимостей",
+          "minutes": 50,
+          "kind": "debug",
+          "outcome": "Исправлять upward и cross-slice imports без циклических обходов.",
+          "done": "Steiger не находит forbidden imports, поведение сохранено.",
+          "checks": ["fsd", "unit"]
+        },
+        {
+          "id": "12-05",
+          "title": "Feature или entity",
+          "minutes": 50,
+          "kind": "refactor",
+          "outcome": "Отличать предметное существительное от пользовательского действия.",
+          "done": "Incident и acknowledge-incident разделены по ответственности и public API.",
+          "checks": ["fsd", "review"]
+        },
+        {
+          "id": "12-06",
+          "title": "Архитектурный аудит",
+          "minutes": 55,
+          "kind": "integrate",
+          "outcome": "Провести небольшой FSD-аудит и исправить нарушения по причинам.",
+          "done": "Steiger проходит, а report объясняет каждое перемещение и сознательно оставленные исключения.",
+          "checks": ["typecheck", "fsd", "review"]
+        }
+      ]
+    },
+    {
+      "id": "13",
+      "slug": "ui-storybook-accessibility",
+      "title": "UI-system, Storybook и accessibility",
+      "goal": "Создавать доступные UI-компоненты и документировать их состояния.",
+      "fsdMode": "enforced",
+      "sessions": [
+        {
+          "id": "13-01",
+          "title": "Tailwind composition",
+          "minutes": 35,
+          "kind": "complete",
+          "outcome": "Собирать стили без динамических class names, теряющихся при build.",
+          "done": "StatusBadge имеет типизированные варианты и корректный production CSS.",
+          "checks": ["build", "unit"]
+        },
+        {
+          "id": "13-02",
+          "title": "Владение shadcn/ui компонентом",
+          "minutes": 45,
+          "kind": "refactor",
+          "outcome": "Адаптировать скопированный primitive через локальный API, сохранив accessibility.",
+          "done": "Button variant добавлен без изменения потребителей и проходит keyboard test.",
+          "checks": ["unit", "a11y"]
+        },
+        {
+          "id": "13-03",
+          "title": "Семантическая таблица",
+          "minutes": 45,
+          "kind": "build",
+          "outcome": "Создать доступную data table с корректными headers и actions.",
+          "done": "Таблица читается по ролям, сортировка доступна с клавиатуры.",
+          "checks": ["unit", "a11y"]
+        },
+        {
+          "id": "13-04",
+          "title": "Stories как каталог состояний",
+          "minutes": 50,
+          "kind": "build",
+          "outcome": "Описывать visual и data states компонента через Storybook stories.",
+          "done": "Компонент имеет default, empty, loading, error и long-content stories.",
+          "checks": ["storybook"]
+        },
+        {
+          "id": "13-05",
+          "title": "Interaction и a11y story",
+          "minutes": 50,
+          "kind": "test",
+          "outcome": "Проверять keyboard interaction и axe violations в изолированном UI.",
+          "done": "Interaction test проходит, Storybook a11y не сообщает violations.",
+          "checks": ["storybook", "a11y"]
+        },
+        {
+          "id": "13-06",
+          "title": "Responsive dashboard widget",
+          "minutes": 55,
+          "kind": "integrate",
+          "outcome": "Собрать адаптивный widget из primitives без нарушения FSD ownership.",
+          "done": "Widget работает на mobile/desktop viewports и проходит Storybook, a11y и FSD checks.",
+          "checks": ["storybook", "a11y", "fsd", "review"]
+        }
+      ]
+    },
+    {
+      "id": "14",
+      "slug": "testing-strategy",
+      "title": "Стратегия тестирования",
+      "goal": "Проверять пользовательское поведение на подходящем уровне без привязки к реализации.",
+      "fsdMode": "enforced",
+      "sessions": [
+        {
+          "id": "14-01",
+          "title": "Чистая логика и unit test",
+          "minutes": 35,
+          "kind": "test",
+          "outcome": "Выносить действительно чистую логику и тестировать её без React.",
+          "done": "Функция фильтрации покрыта boundary cases без рендера компонента.",
+          "checks": ["unit"]
+        },
+        {
+          "id": "14-02",
+          "title": "Testing Library глазами пользователя",
+          "minutes": 45,
+          "kind": "test",
+          "outcome": "Находить элементы по роли и имени и совершать реальные действия пользователя.",
+          "done": "Тест формы не обращается к component internals или CSS selectors.",
+          "checks": ["unit", "review"]
+        },
+        {
+          "id": "14-03",
+          "title": "Асинхронный тест с MSW",
+          "minutes": 45,
+          "kind": "test",
+          "outcome": "Контролировать сетевой сценарий без mock конкретного query hook.",
+          "done": "Success и error tests используют MSW handlers и наблюдаемый UI.",
+          "checks": ["integration"]
+        },
+        {
+          "id": "14-04",
+          "title": "Удалить implementation-detail test",
+          "minutes": 50,
+          "kind": "refactor",
+          "outcome": "Заменять хрупкие assertions на поведенческий контракт.",
+          "done": "Рефакторинг внутренней структуры компонента не ломает тест.",
+          "checks": ["unit", "review"]
+        },
+        {
+          "id": "14-05",
+          "title": "Playwright critical flow",
+          "minutes": 50,
+          "kind": "test",
+          "outcome": "Покрыть один пользовательский маршрут через browser-level assertions.",
+          "done": "Сценарий login-to-detail изолирован, повторяем и использует user-facing locators.",
+          "checks": ["e2e"]
+        },
+        {
+          "id": "14-06",
+          "title": "Матрица test levels",
+          "minutes": 55,
+          "kind": "review",
+          "outcome": "Распределять проверки между unit, integration, Storybook и E2E.",
+          "done": "Для feature составлен и реализован минимальный test plan без дублирующих сценариев.",
+          "checks": ["unit", "integration", "e2e", "review"]
+        }
+      ]
+    },
+    {
+      "id": "15",
+      "slug": "performance-reliability",
+      "title": "Performance и надёжность UI",
+      "goal": "Оптимизировать только измеренные проблемы и локализовать runtime failures.",
+      "fsdMode": "enforced",
+      "sessions": [
+        {
+          "id": "15-01",
+          "title": "Профилирование рендера",
+          "minutes": 35,
+          "kind": "observe",
+          "outcome": "Использовать profiler для поиска реальной причины лишней работы.",
+          "done": "Зафиксирован воспроизводимый render trace и названа конкретная причина.",
+          "checks": ["review"]
+        },
+        {
+          "id": "15-02",
+          "title": "Мемоизация по доказательству",
+          "minutes": 45,
+          "kind": "refactor",
+          "outcome": "Применять memo/useMemo/useCallback только для измеренного bottleneck.",
+          "done": "Оптимизация сокращает измеренную работу и не усложняет остальные компоненты.",
+          "checks": ["unit", "review"]
+        },
+        {
+          "id": "15-03",
+          "title": "Transition для non-urgent UI",
+          "minutes": 45,
+          "kind": "complete",
+          "outcome": "Разделять срочное обновление input и тяжёлое обновление результатов.",
+          "done": "Ввод остаётся отзывчивым, pending state доступен пользователю.",
+          "checks": ["integration"]
+        },
+        {
+          "id": "15-04",
+          "title": "Lazy и Suspense boundary",
+          "minutes": 50,
+          "kind": "build",
+          "outcome": "Размещать loading boundary вокруг лениво загружаемой части UI.",
+          "done": "Chunk загружается отдельно, fallback локален и layout не прыгает.",
+          "checks": ["build", "integration"]
+        },
+        {
+          "id": "15-05",
+          "title": "Error Boundary и recovery",
+          "minutes": 50,
+          "kind": "build",
+          "outcome": "Локализовать render error и дать пользователю безопасный recovery action.",
+          "done": "Ошибка widget не разрушает страницу, retry восстанавливает содержимое.",
+          "checks": ["integration", "a11y"]
+        },
+        {
+          "id": "15-06",
+          "title": "Надёжный экран данных",
+          "minutes": 55,
+          "kind": "integrate",
+          "outcome": "Соединить transition, lazy loading, query states и error isolation.",
+          "done": "Экран проходит performance rubric и сценарии slow-load/render-failure/retry.",
+          "checks": ["integration", "build", "review"]
+        }
+      ]
+    },
+    {
+      "id": "16",
+      "slug": "product-and-delivery",
+      "title": "Product concerns и delivery",
+      "goal": "Подготовить SPA к реальной эксплуатации: auth, i18n, config, observability и доставка.",
+      "fsdMode": "enforced",
+      "sessions": [
+        {
+          "id": "16-01",
+          "title": "Mock auth и role capabilities",
+          "minutes": 35,
+          "kind": "build",
+          "outcome": "Моделировать session и разрешения как capabilities, а не рассыпанные role checks.",
+          "done": "Viewer, operator и admin видят только разрешённые действия.",
+          "checks": ["typecheck", "integration"]
+        },
+        {
+          "id": "16-02",
+          "title": "i18n и fallback",
+          "minutes": 45,
+          "kind": "integrate",
+          "outcome": "Вынести пользовательские строки и определить fallback для отсутствующего перевода.",
+          "done": "Два языка переключаются без reload, missing key имеет предсказуемый fallback.",
+          "checks": ["integration"]
+        },
+        {
+          "id": "16-03",
+          "title": "Runtime config и env validation",
+          "minutes": 50,
+          "kind": "build",
+          "outcome": "Валидировать публичную конфигурацию на старте и не смешивать её с секретами.",
+          "done": "Некорректный env останавливает build или показывает диагностируемую ошибку.",
+          "checks": ["typecheck", "build"]
+        },
+        {
+          "id": "16-04",
+          "title": "Docker image и Nginx SPA fallback",
+          "minutes": 50,
+          "kind": "ship",
+          "outcome": "Собрать multi-stage production image и обслуживать deep links.",
+          "done": "Container healthcheck проходит, прямой переход на вложенный route возвращает SPA.",
+          "checks": ["build", "docker"]
+        },
+        {
+          "id": "16-05",
+          "title": "GitHub Actions и Vercel preview",
+          "minutes": 55,
+          "kind": "ship",
+          "outcome": "Связать quality gate с preview deployment без дублирования команд.",
+          "done": "Workflow использует root scripts, а preview deploy зависит от зелёных проверок.",
+          "checks": ["ci", "deploy", "review"]
+        },
+        {
+          "id": "16-06",
+          "title": "Sentry errors и source maps",
+          "minutes": 55,
+          "kind": "integrate",
+          "outcome": "Отправлять диагностический context и связывать production stack trace с исходниками.",
+          "done": "Без DSN приложение работает, с test DSN ошибка содержит release/context и корректный stack trace.",
+          "checks": ["observability", "build", "review"]
+        }
+      ]
+    },
+    {
+      "id": "17",
+      "slug": "nextjs-lab",
+      "title": "Next.js и server-first React",
+      "goal": "Увидеть, какие обязанности добавляет React-фреймворк и где проходит server/client boundary.",
+      "fsdMode": "guided",
+      "sessions": [
+        {
+          "id": "17-01",
+          "title": "SPA, SSR, RSC и hydration",
+          "minutes": 35,
+          "kind": "compare",
+          "outcome": "Различать место выполнения, HTML delivery и интерактивность четырёх моделей.",
+          "done": "Для шести требований выбран подход и объяснены его trade-offs.",
+          "checks": ["quiz", "review"]
+        },
+        {
+          "id": "17-02",
+          "title": "App Router route",
+          "minutes": 45,
+          "kind": "build",
+          "outcome": "Создать статическую и динамическую страницу через filesystem routing.",
+          "done": "Оба route корректно собираются, неизвестный id показывает not-found.",
+          "checks": ["typecheck", "build"]
+        },
+        {
+          "id": "17-03",
+          "title": "Server и Client Components",
+          "minutes": 50,
+          "kind": "refactor",
+          "outcome": "Разместить client boundary минимально вокруг интерактивной части.",
+          "done": "Server page получает данные, интерактивный фильтр изолирован в Client Component.",
+          "checks": ["build", "review"]
+        },
+        {
+          "id": "17-04",
+          "title": "Loading и error route UI",
+          "minutes": 50,
+          "kind": "build",
+          "outcome": "Локализовать streaming fallback и route-level error recovery.",
+          "done": "Slow и failure сценарии показывают локальные loading/error states.",
+          "checks": ["integration"]
+        },
+        {
+          "id": "17-05",
+          "title": "Mutation на server boundary",
+          "minutes": 50,
+          "kind": "complete",
+          "outcome": "Сравнить server-side mutation с SPA mutation через query client.",
+          "done": "Форма изменяет данные, валидирует input и показывает server error.",
+          "checks": ["typecheck", "integration", "review"]
+        },
+        {
+          "id": "17-06",
+          "title": "ADR: Vite SPA или Next.js",
+          "minutes": 55,
+          "kind": "review",
+          "outcome": "Принимать framework decision по требованиям, а не популярности.",
+          "done": "ADR сравнивает routing, data flow, deployment, observability и team cost.",
+          "checks": ["review"]
+        }
+      ]
+    }
+  ],
+  "capstone": {
+    "id": "capstone",
+    "title": "Operations dashboard",
+    "goal": "Самостоятельно собрать production-like SPA из коротких green-to-green шагов.",
+    "fsdMode": "enforced",
+    "sessions": [
+      {
+        "id": "CP-01",
+        "title": "Домен и acceptance map",
+        "minutes": 45,
+        "kind": "review",
+        "outcome": "Зафиксировать Asset, Incident, WorkOrder, роли и пользовательские маршруты.",
+        "done": "Domain map и acceptance criteria не содержат нерешённых продуктовых развилок.",
+        "checks": ["review"]
+      },
+      {
+        "id": "CP-02",
+        "title": "App shell и providers",
+        "minutes": 50,
+        "kind": "build",
+        "outcome": "Создать минимальный Vite SPA shell и композицию providers.",
+        "done": "Приложение запускается, shell доступен, typecheck и smoke test зелёные.",
+        "checks": ["typecheck", "integration"]
+      },
+      {
+        "id": "CP-03",
+        "title": "Route tree и layouts",
+        "minutes": 50,
+        "kind": "build",
+        "outcome": "Настроить public и protected route groups с вложенными layouts.",
+        "done": "Все страницы доступны по стабильным URL, not-found локализован.",
+        "checks": ["integration"]
+      },
+      {
+        "id": "CP-04",
+        "title": "MSW login contract",
+        "minutes": 50,
+        "kind": "build",
+        "outcome": "Реализовать детерминированный login API с success и error cases.",
+        "done": "Login form обрабатывает valid, invalid и network failure сценарии.",
+        "checks": ["integration"]
+      },
+      {
+        "id": "CP-05",
+        "title": "Session restore и protected routes",
+        "minutes": 55,
+        "kind": "integrate",
+        "outcome": "Восстанавливать mock session и возвращать пользователя на исходный route.",
+        "done": "Reload сохраняет session, logout закрывает protected pages.",
+        "checks": ["integration"]
+      },
+      {
+        "id": "CP-06",
+        "title": "Role capabilities",
+        "minutes": 45,
+        "kind": "build",
+        "outcome": "Централизовать viewer/operator/admin permissions.",
+        "done": "UI и route actions используют единый capability contract.",
+        "checks": ["typecheck", "integration"]
+      },
+      {
+        "id": "CP-07",
+        "title": "Assets API",
+        "minutes": 45,
+        "kind": "build",
+        "outcome": "Создать типизированный MSW resource с фильтрами и pagination.",
+        "done": "Handler возвращает стабильные DTO и проверенные boundary cases.",
+        "checks": ["typecheck", "integration"]
+      },
+      {
+        "id": "CP-08",
+        "title": "Assets query states",
+        "minutes": 50,
+        "kind": "build",
+        "outcome": "Подключить TanStack Query и отобразить все состояния ресурса.",
+        "done": "Loading, empty, error, retry и success проверены через MSW.",
+        "checks": ["integration", "a11y"]
+      },
+      {
+        "id": "CP-09",
+        "title": "Assets table",
+        "minutes": 50,
+        "kind": "build",
+        "outcome": "Собрать доступную таблицу на Tailwind и shadcn/ui.",
+        "done": "Таблица поддерживает keyboard sorting и role-aware actions.",
+        "checks": ["integration", "a11y"]
+      },
+      {
+        "id": "CP-10",
+        "title": "Фильтры в URL",
+        "minutes": 50,
+        "kind": "integrate",
+        "outcome": "Синхронизировать query params, API query keys и UI controls.",
+        "done": "Ссылка воспроизводит фильтры, back/forward не рассинхронизируют UI.",
+        "checks": ["integration"]
+      },
+      {
+        "id": "CP-11",
+        "title": "Asset detail",
+        "minutes": 45,
+        "kind": "build",
+        "outcome": "Создать detail route с not-found и related incidents.",
+        "done": "Valid, missing и error cases имеют завершённый UI.",
+        "checks": ["integration"]
+      },
+      {
+        "id": "CP-12",
+        "title": "Incident form schema",
+        "minutes": 50,
+        "kind": "build",
+        "outcome": "Описать incident input через Zod и React Hook Form.",
+        "done": "Conditional fields, field errors и focus behavior проходят тесты.",
+        "checks": ["typecheck", "integration", "a11y"]
+      },
+      {
+        "id": "CP-13",
+        "title": "Create incident mutation",
+        "minutes": 50,
+        "kind": "integrate",
+        "outcome": "Связать форму с mutation и точной invalidation.",
+        "done": "Success закрывает форму и обновляет список, errors сохраняют введённые данные.",
+        "checks": ["integration"]
+      },
+      {
+        "id": "CP-14",
+        "title": "Optimistic acknowledge и rollback",
+        "minutes": 55,
+        "kind": "integrate",
+        "outcome": "Оптимистично подтверждать инцидент с rollback при конфликте.",
+        "done": "409 и 500 восстанавливают cache и дают понятный recovery action.",
+        "checks": ["integration", "review"]
+      },
+      {
+        "id": "CP-15",
+        "title": "Zustand UI preferences",
+        "minutes": 45,
+        "kind": "build",
+        "outcome": "Хранить плотность таблицы и layout preferences отдельно от server state.",
+        "done": "Preferences persist и мигрируют, query data не попадает в store.",
+        "checks": ["unit", "review"]
+      },
+      {
+        "id": "CP-16",
+        "title": "FSD audit и public APIs",
+        "minutes": 55,
+        "kind": "refactor",
+        "outcome": "Довести app/pages/widgets/features/entities/shared до проверяемых границ.",
+        "done": "Steiger проходит, ADR объясняет нетривиальные placements.",
+        "checks": ["typecheck", "fsd", "review"]
+      },
+      {
+        "id": "CP-17",
+        "title": "Storybook и accessibility",
+        "minutes": 50,
+        "kind": "test",
+        "outcome": "Зафиксировать ключевые UI states и автоматические a11y checks.",
+        "done": "Stories покрывают основные состояния, a11y violations отсутствуют.",
+        "checks": ["storybook", "a11y"]
+      },
+      {
+        "id": "CP-18",
+        "title": "Unit и integration regression",
+        "minutes": 55,
+        "kind": "test",
+        "outcome": "Закрыть критичную бизнес-логику минимальным набором устойчивых тестов.",
+        "done": "Test matrix реализована без проверки implementation details.",
+        "checks": ["unit", "integration", "review"]
+      },
+      {
+        "id": "CP-19",
+        "title": "Playwright role workflow",
+        "minutes": 55,
+        "kind": "test",
+        "outcome": "Проверить login, навигацию и role restriction в браузере.",
+        "done": "Изолированные viewer/operator сценарии стабильно проходят.",
+        "checks": ["e2e"]
+      },
+      {
+        "id": "CP-20",
+        "title": "i18n и fallback states",
+        "minutes": 45,
+        "kind": "integrate",
+        "outcome": "Добавить второй язык и проверить длинные строки и fallback.",
+        "done": "Переключение языка не ломает layout, missing translations диагностируются.",
+        "checks": ["integration", "storybook"]
+      },
+      {
+        "id": "CP-21",
+        "title": "Error Boundary и Sentry",
+        "minutes": 50,
+        "kind": "integrate",
+        "outcome": "Локализовать runtime error и приложить безопасный diagnostic context.",
+        "done": "Приложение работает без DSN, test event содержит release и route context.",
+        "checks": ["integration", "observability"]
+      },
+      {
+        "id": "CP-22",
+        "title": "Docker и Nginx",
+        "minutes": 55,
+        "kind": "ship",
+        "outcome": "Собрать self-hosted production artifact.",
+        "done": "Image запускается через Compose, healthcheck и deep-link smoke проходят.",
+        "checks": ["build", "docker"]
+      },
+      {
+        "id": "CP-23",
+        "title": "GitHub Actions и Vercel",
+        "minutes": 55,
+        "kind": "ship",
+        "outcome": "Автоматизировать quality gate и managed deployment.",
+        "done": "Workflow выполняет все checks, preview и production routes отвечают корректно.",
+        "checks": ["ci", "deploy"]
+      },
+      {
+        "id": "CP-24",
+        "title": "Финальный acceptance review",
+        "minutes": 60,
+        "kind": "review",
+        "outcome": "Проверить продукт, архитектуру, тесты, delivery и observability как единое целое.",
+        "done": "Все acceptance criteria имеют доказательства, блокирующих замечаний Codex нет.",
+        "checks": ["typecheck", "lint", "unit", "integration", "fsd", "storybook", "a11y", "e2e", "build", "review"]
+      }
+    ]
+  }
+}
