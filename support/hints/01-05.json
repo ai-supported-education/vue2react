@@ -1,0 +1,16 @@
+{
+  "levels": [
+    {
+      "title": "Контракт операции",
+      "body": "Условие просит запомнить адресата в момент нажатия Send, а не читать самый новый адресат в момент завершения timeout. Snapshot handler уже даёт нужную семантику."
+    },
+    {
+      "title": "Лишняя latest-ссылка",
+      "body": "Проблема в latestRecipient: callback намеренно обходит snapshot. Проверьте, какое значение recipient замкнул handleSend текущего render."
+    },
+    {
+      "title": "Структура исправления",
+      "body": "Удалите useRef, latestRecipient и присваивание current. В timeout сформируйте статус из recipient, замкнутого handleSend: setStatus(\"Sent to \" + recipient)."
+    }
+  ]
+}

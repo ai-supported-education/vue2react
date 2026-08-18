@@ -1,0 +1,16 @@
+{
+  "levels": [
+    {
+      "title": "Что должен помнить React",
+      "body": "Значение должно пережить завершение component function и одновременно запросить новый render. Обычная module variable умеет только первую часть."
+    },
+    {
+      "title": "Место изменения",
+      "body": "Посмотрите на объявление count и handleIncrement. Компоненту нужна пара value/setter, возвращаемая одним React hook."
+    },
+    {
+      "title": "Структура исправления",
+      "body": "Импортируйте useState, объявите const [count, setCount] = useState(0), а в handler вызовите setCount(previous => previous + 1). Удалите module variable."
+    }
+  ]
+}
