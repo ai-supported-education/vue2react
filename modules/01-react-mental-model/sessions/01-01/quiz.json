@@ -1,0 +1,54 @@
+{
+  "questions": [
+    {
+      "id": "q1",
+      "prompt": "score в текущем render равен 7. Handler вызывает setScore(score + 5), затем console.log(score). Что попадёт в console?",
+      "options": {
+        "A": "7",
+        "B": "12",
+        "C": "Зависит от скорости рендера"
+      },
+      "requiresReason": true
+    },
+    {
+      "id": "q2",
+      "prompt": "temperature равна 10. Handler дважды вызывает setTemperature(temperature + 2). Что покажет следующий render?",
+      "options": {
+        "A": "10",
+        "B": "12",
+        "C": "14"
+      },
+      "requiresReason": true
+    },
+    {
+      "id": "q3",
+      "prompt": "Handler создан для draftVersion 3 и запускает timeout. До timeout UI перешёл на version 4. Какую version увидит старый callback?",
+      "options": {
+        "A": "3",
+        "B": "4",
+        "C": "undefined"
+      },
+      "requiresReason": true
+    },
+    {
+      "id": "q4",
+      "prompt": "Объект state был изменён напрямую без setter. Что само по себе произойдёт с UI?",
+      "options": {
+        "A": "React сразу выполнит render",
+        "B": "React обновит только изменённое поле",
+        "C": "Новый render не был запрошен"
+      },
+      "requiresReason": true
+    },
+    {
+      "id": "q5",
+      "prompt": "Объект state изменён напрямую и передан в setter той же ссылкой. Как React сравнивает следующее значение с предыдущим?",
+      "options": {
+        "A": "Глубоко сравнивает каждое поле",
+        "B": "Сравнивает значение через Object.is и может пропустить render",
+        "C": "Всегда выполняет render"
+      },
+      "requiresReason": true
+    }
+  ]
+}

@@ -1,0 +1,84 @@
+{
+  "questions": [
+    {
+      "id": "q1",
+      "prompt": "fullName всегда получается из firstName и lastName текущего рендера.",
+      "options": {
+        "render": "Вычислить во время render",
+        "state": "Хранить в useState",
+        "effect": "Обновлять через useEffect"
+      },
+      "requiresReason": true
+    },
+    {
+      "id": "q2",
+      "prompt": "Нужно отправить сохранение после нажатия пользователем кнопки Save.",
+      "options": {
+        "event": "Выполнить в event handler",
+        "effect": "Следить за флагом в useEffect",
+        "render": "Выполнить во время render"
+      },
+      "requiresReason": true
+    },
+    {
+      "id": "q3",
+      "prompt": "Заголовок browser tab должен соответствовать открытому документу.",
+      "options": {
+        "effect": "Синхронизировать document.title в useEffect",
+        "state": "Скопировать title в state",
+        "ref": "Хранить title в ref"
+      },
+      "requiresReason": true
+    },
+    {
+      "id": "q4",
+      "prompt": "Выбранная локальная вкладка влияет на отображаемую панель и не должна попадать в URL.",
+      "options": {
+        "state": "Хранить в local state",
+        "ref": "Хранить в ref",
+        "effect": "Синхронизировать через effect"
+      },
+      "requiresReason": true
+    },
+    {
+      "id": "q5",
+      "prompt": "Фильтр списка должен переживать reload и передаваться ссылкой коллеге.",
+      "options": {
+        "url": "Хранить в search params",
+        "state": "Хранить только в component state",
+        "context": "Хранить в Context"
+      },
+      "requiresReason": true
+    },
+    {
+      "id": "q6",
+      "prompt": "Список инцидентов приходит с API, устаревает и используется на нескольких страницах.",
+      "options": {
+        "query": "Хранить в server-state query cache",
+        "effect": "Fetch в каждом component effect",
+        "zustand": "Скопировать response в client store"
+      },
+      "requiresReason": true
+    },
+    {
+      "id": "q7",
+      "prompt": "Тема интерфейса нужна глубоко вложенным компонентам.",
+      "options": {
+        "context": "Передать стабильную cross-cutting dependency через Context",
+        "props": "Передать через каждый промежуточный компонент",
+        "effect": "Синхронизировать через effect"
+      },
+      "requiresReason": true
+    },
+    {
+      "id": "q8",
+      "prompt": "Timer id должен переживать render, но никогда не отображается.",
+      "options": {
+        "ref": "Хранить в ref",
+        "state": "Хранить в state",
+        "render": "Создавать заново при каждом render"
+      },
+      "requiresReason": true
+    }
+  ]
+}

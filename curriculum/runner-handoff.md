@@ -31,7 +31,9 @@ Runner обязан проверять manifest до любой операции
       "activeSessionId": null,
       "completedSessionIds": [],
       "startedAt": null,
-      "lastCheck": null
+      "lastCheck": null,
+      "lastReview": null,
+      "revealedHintLevel": 0
     }
 
 Запись должна быть атомарной: сначала временный файл в .training, затем rename. Повреждённый progress не перезаписывается молча — runner сообщает путь и предлагает восстановление из последнего валидного backup.
@@ -68,7 +70,9 @@ Runner обязан проверять manifest до любой операции
 - Требует выполненный session:check.
 - Собирает task, outcome, done, rubric, diff текущей работы и результаты checks.
 - Выводит готовый review-пакет для Codex.
+- Не запускает Codex или другой внешний сервис самостоятельно.
 - Инструктирует Codex вернуть PASS или NEEDS_WORK и не менять файлы.
+- Codex записывает результат через session:review --record PASS|NEEDS_WORK.
 - Неблокирующие улучшения отделяются от обязательного scope.
 
 ### session:finish
@@ -79,10 +83,15 @@ Runner обязан проверять manifest до любой операции
 - Не создаёт Git commit автоматически.
 - Показывает короткое подтверждение завершения и следующую карточку.
 
-### session:rescue
+### session:hint
 
 - Доступна только для активной сессии.
-- Показывает уровни помощи по одному: concept, location, reference diff.
+- Не принимает номер уровня и показывает только следующий: concept, location,
+  reference fragment.
+- Читает support/hints/ID.json из отдельного Git ref course-support; файла с
+  подсказками в рабочей папке сессии нет.
+- Записывает revealedHintLevel в локальный progress, поэтому уровни нельзя
+  пропустить или повторно скрыть обычной командой.
 - Никогда не применяет diff автоматически.
 - После применения reference решения обычные check и finish остаются обязательными.
 
@@ -90,7 +99,8 @@ Runner обязан проверять manifest до любой операции
 
 Первая версия runner должна поддерживать labels:
 
-- quiz и review — проверка материала и rubric;
+- quiz — автоматическое сравнение с ключом из course-support;
+- review — ручная смысловая проверка Codex, а не автоматический check;
 - typecheck, lint, unit, integration — локальные code checks;
 - fsd — Steiger;
 - storybook и a11y — component-level checks;
@@ -111,15 +121,23 @@ Runner обязан проверять manifest до любой операции
 5. Failed check не закрывает сессию и сохраняет диагностический report.
 6. Успешный finish делает следующую карточку доступной.
 7. Повреждённый progress не приводит к потере предыдущего состояния.
-8. Review и rescue не изменяют tracked files.
+8. Review и hint не изменяют tracked files.
 9. Runner одинаково работает из корня workspace на macOS и Linux CI.
 10. Все 126 карточек из manifest достижимы в заданном порядке.
 
-## Следующая реализация
+## Реализовано
 
-1. Добавить JSON Schema и dependency-free validator manifest.
-2. Создать TypeScript CLI и progress storage.
-3. Реализовать next/start без exercise-файлов.
-4. Добавить check registry и test doubles для внешних checks.
-5. Покрыть lifecycle runner unit и integration tests.
-6. После стабильного runner подготовить материалы 01-01 — 01-06.
+- Dependency-free TypeScript validation manifest.
+- Atomic progress storage с backup.
+- Команды validate, next, start, check, review, finish, hint и dev.
+- Check registry для quiz, typecheck, unit и integration.
+- Content hash между check, review и finish.
+- Lifecycle, manifest, progress и quiz tests.
+- Материалы 01-01 — 01-06.
+
+## Следующее расширение
+
+1. Добавить формальную JSON Schema.
+2. Подключать новые check labels по мере появления разделов.
+3. Подготовить materials и acceptance tests раздела 02.
+4. Добавлять immutable solution tags по мере реализации следующих разделов.

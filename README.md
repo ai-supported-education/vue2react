@@ -20,11 +20,51 @@
 
 ## Статус
 
-Сейчас зафиксирована карта курса и контракт короткой учебной сессии:
+Реализованы session runner и первый учебный раздел 01-01 — 01-06:
 
 - [обзор всех разделов и сессий](curriculum/README.md);
 - [контракт сессии](curriculum/session-contract.md);
+- [стандарт учебного материала](curriculum/authoring-standard.md);
 - [машиночитаемая карта курса](curriculum/course.json);
-- [handoff для session runner](curriculum/runner-handoff.md).
+- [описание session runner](curriculum/runner-handoff.md);
+- [первый раздел](modules/01-react-mental-model/README.md).
 
-Следующий этап — реализовать runner с командами `session:start`, `session:check`, `session:review` и `session:finish`, после чего подготовить первый учебный раздел.
+## Начало работы
+
+Установите зависимости и посмотрите следующую карточку:
+
+    pnpm install
+    pnpm session:validate
+    pnpm session:next
+    pnpm session:start 01-01
+
+Основной цикл:
+
+    pnpm session:check
+    pnpm session:finish
+
+`session:check` запускает только локальные автоматические проверки: quiz,
+TypeScript, Vitest и другие checks из карточки. Команда не обращается к Codex.
+
+Если среди checks указан `review`, после зелёного check попросите Codex:
+
+    Проверь активную учебную сессию
+
+Codex запустит `pnpm session:review`, проверит объяснение, соответствие условию и
+best practices, затем запишет `PASS` или `NEEDS_WORK`. Сама shell-команда
+`pnpm session:review` лишь печатает пакет для проверки — агента она не запускает.
+
+Для code-сессий доступен интерактивный UI:
+
+    pnpm session:dev
+
+Если нужен ограниченный уровень помощи:
+
+    pnpm session:hint
+
+Каждый вызов раскрывает ровно один следующий уровень. Подсказки, ключи quiz и
+эталонные решения находятся в отдельной Git-ветке `course-support`, поэтому не
+видны рядом с упражнением в IDE. Намеренно прочитать эту ветку всё равно можно:
+это защита от случайного спойлера, а не от владельца локального repository.
+
+Прогресс хранится в игнорируемой Git папке .training. Runner не создаёт commits, не переключает branches и не применяет решение автоматически.

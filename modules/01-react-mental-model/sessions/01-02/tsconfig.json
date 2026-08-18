@@ -1,0 +1,4 @@
+{
+  "extends": "../../tsconfig.session.json",
+  "include": ["App.tsx", "exercise.test.tsx", "../../test/setup.ts"]
+}
