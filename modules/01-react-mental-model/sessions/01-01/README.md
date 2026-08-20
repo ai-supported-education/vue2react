@@ -158,11 +158,29 @@ setCount((previous) => previous + 1);
 
 ## Асинхронный callback принадлежит своему render
 
+В следующем примере `Ada` и `Grace` — просто два явно заданных имени. Родитель
+`GreetingDemo` хранит выбранное имя в state и передаёт его дочернему компоненту
+через prop `name`:
+
 ~~~tsx
+import { useState } from "react";
+
+function GreetingDemo() {
+  const [name, setName] = useState("Ada");
+
+  return (
+    <section>
+      <button onClick={() => setName("Ada")}>Choose Ada</button>
+      <button onClick={() => setName("Grace")}>Choose Grace</button>
+      <DelayedGreeting name={name} />
+    </section>
+  );
+}
+
 function DelayedGreeting({ name }: { name: string }) {
   function handleClick() {
     window.setTimeout(() => {
-      alert("Hello, " + name);
+      console.log("Hello, " + name);
     }, 3000);
   }
 
@@ -170,7 +188,40 @@ function DelayedGreeting({ name }: { name: string }) {
 }
 ~~~
 
-Если button был нажат, когда name равнялся Ada, callback замкнул name из этого render. Даже если родитель успеет передать name Grace до срабатывания timeout, старый callback продолжит видеть Ada.
+Выполним конкретную последовательность:
+
+1. Первый render `GreetingDemo` получает state `name = "Ada"`.
+2. Он вызывает `DelayedGreeting` с prop `name="Ada"`.
+3. На экране появляется кнопка `Greet Ada`.
+4. Пользователь нажимает `Greet Ada`. Созданный в этом render `handleClick`
+   регистрирует callback в `setTimeout`.
+5. Не дожидаясь трёх секунд, пользователь нажимает `Choose Grace`.
+6. `setName("Grace")` запрашивает новый render. Теперь новый экземпляр
+   `DelayedGreeting` получает `name="Grace"`, а кнопка показывает `Greet Grace`.
+7. Срабатывает timeout, зарегистрированный на шаге 4. Он выводит `Hello, Ada`.
+
+Почему не `Grace`? Обычная JavaScript-функция замыкает переменные из места, где
+она была создана. Callback на шаге 4 был создан внутри вызова
+`DelayedGreeting({ name: "Ada" })`, поэтому его `name` относится к тому render.
+
+Новый render не редактирует старую функцию. Он создаёт другую функцию с другим
+`name`:
+
+~~~tsx
+// Упрощённо: callback, уже переданный первому timeout.
+function callbackFromAdaRender() {
+  console.log("Hello, " + "Ada");
+}
+
+// Новый callback появился после выбора Grace,
+// но он попадёт в timeout только после нового нажатия Greet Grace.
+function callbackFromGraceRender() {
+  console.log("Hello, " + "Grace");
+}
+~~~
+
+React здесь не делает специальную копию `name`. Это обычное JavaScript-замыкание
+в сочетании с моделью render snapshot.
 
 Это не «устаревшее значение» автоматически. Иногда сохранённый snapshot — правильный контракт операции. Например, отложенная отправка должна помнить адресата на момент нажатия Send.
 
