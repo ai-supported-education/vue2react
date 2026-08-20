@@ -2,7 +2,7 @@
 
 В каждом вопросе сначала прочитайте код как обычный JavaScript. Затем отметьте,
 из какого render взято каждое значение. Запишите букву выбранного ответа в
-`answers.json`, а в `reasons` объясните выбор через snapshot или identity.
+`answers.json` и добавьте самостоятельное объяснение в `reasons`.
 
 Не запускайте фрагменты до прогноза: цель — научиться выполнять эту подстановку
 в голове.
@@ -29,8 +29,6 @@ function ScoreButton() {
 - B. `12`
 - C. Зависит от скорости render
 
-В reason назовите render, которому принадлежит `score` в этой функции.
-
 ## q2. Два одинаковых запроса обновления
 
 ~~~tsx
@@ -55,8 +53,6 @@ function TemperatureButton() {
 - A. `10`
 - B. `12`
 - C. `14`
-
-В reason подставьте исходное `temperature` в оба вызова setter.
 
 ## q3. Callback, уже переданный в timeout
 
@@ -92,8 +88,6 @@ function DraftDemo() {
 - B. `4`
 - C. `undefined`
 
-В reason объясните, в каком render был создан callback.
-
 ## q4. Мутация без сигнала React
 
 ~~~tsx
@@ -120,8 +114,6 @@ function ProfileScore() {
 - B. React обновит только `<output>`
 - C. Новый render не был запрошен
 
-В reason отделите JavaScript-мутацию от сигнала, который понимает React.
-
 ## q5. Та же ссылка передана setter
 
 ~~~tsx
@@ -147,5 +139,3 @@ function ProfileScore() {
 - A. Глубоко сравнит каждое поле объекта
 - B. Сравнит ссылки через `Object.is` и может пропустить render
 - C. Всегда выполнит render после setter
-
-В reason укажите, является ли `profile` после мутации новым объектом.
