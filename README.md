@@ -83,18 +83,16 @@ best practices, затем запишет `PASS` или `NEEDS_WORK`. Сама s
     git switch -c progress/<ваше-имя>
     git push -u origin progress/<ваше-имя>
 
-Когда официальный курс обновился, сначала обновите личный `master`, затем
-влейте его в ветку прохождения:
+Когда официальный курс обновился, перейдите на чистую ветку
+`progress/<ваше-имя>` и запустите:
 
-    git fetch upstream
-    git switch master
-    git merge --ff-only upstream/master
-    git push origin master
-    git switch progress/<ваше-имя>
-    git merge master
-    git push origin progress/<ваше-имя>
+    pnpm course:sync
 
-При конфликте в ветке `progress/<ваше-имя>` сохраните собственное решение,
-проверьте текущую учебную сессию и только затем завершите merge. После
-`git fetch upstream` runner сам использует `upstream/course-support` для hints
-и quiz keys; вручную переключаться на эту ветку не нужно.
+Команда получает изменения из `origin` и `upstream`, fast-forward обновляет
+личный `master` из `upstream/master`, отправляет его в personal fork, вливает
+`master` в текущую progress-ветку и отправляет её в personal fork. При
+конфликте она останавливается на progress-ветке и ничего не пушит поверх
+конфликта: сохраните собственное решение, выполните `git add`, `git commit` и
+`git push origin progress/<ваше-имя>` вручную. После fetch runner сам использует
+`upstream/course-support` для hints и quiz keys; вручную переключаться на эту
+ветку не нужно.
