@@ -68,3 +68,33 @@ best practices, затем запишет `PASS` или `NEEDS_WORK`. Сама s
 это защита от случайного спойлера, а не от владельца локального repository.
 
 Прогресс хранится в игнорируемой Git папке .training. Runner не создаёт commits, не переключает branches и не применяет решение автоматически.
+
+## Personal fork
+
+Официальный repository хранит чистый курс. Решения, заполненные `answers.json`
+и изменённые `App.tsx` держите в личном fork на отдельной ветке, например
+`progress/<ваше-имя>`.
+
+Один раз добавьте официальный repository как `upstream` и создайте ветку
+прохождения:
+
+    git remote add upstream https://github.com/ai-supported-education/vue2react.git
+    git fetch upstream
+    git switch -c progress/<ваше-имя>
+    git push -u origin progress/<ваше-имя>
+
+Когда официальный курс обновился, сначала обновите личный `master`, затем
+влейте его в ветку прохождения:
+
+    git fetch upstream
+    git switch master
+    git merge --ff-only upstream/master
+    git push origin master
+    git switch progress/<ваше-имя>
+    git merge master
+    git push origin progress/<ваше-имя>
+
+При конфликте в ветке `progress/<ваше-имя>` сохраните собственное решение,
+проверьте текущую учебную сессию и только затем завершите merge. После
+`git fetch upstream` runner сам использует `upstream/course-support` для hints
+и quiz keys; вручную переключаться на эту ветку не нужно.
