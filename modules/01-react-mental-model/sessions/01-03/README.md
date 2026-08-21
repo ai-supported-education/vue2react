@@ -193,8 +193,8 @@ Effect не исправляет identity и создаёт второй ист�
 Исправьте handleIncreaseScore в App.tsx:
 
 - previous profile не мутирует;
-- setter получает новый объект;
-- score вычисляется из previous state;
+- setter получает updater function, которая возвращает новый объект;
+- score вычисляется из аргумента previous state, переданного React в updater;
 - name сохраняется;
 - остальная разметка не меняется.
 
@@ -204,6 +204,15 @@ Effect не исправляет identity и создаёт второй ист�
 
 Check запускает TypeScript и поведенческий тест двух clicks. Тест не проверяет имя hook или точный текст реализации.
 
+После зелёного check обязателен отдельный Codex-review: он проверяет, что решение не мутирует
+предыдущий state snapshot и вычисляет next state из аргумента updater-функции. Эти критерии
+не стоит выражать хрупким поиском конкретного текста реализации.
+
+Команда ниже только собирает review-пакет и сама не запускает агента. Попросите Codex
+проверить активную сессию; после фактической проверки он запишет PASS или NEEDS_WORK.
+
+    pnpm session:review
+
 Подсказка:
 
     pnpm session:hint
@@ -212,8 +221,10 @@ Check запускает TypeScript и поведенческий тест дв�
 
 - два clicks выводят score 2;
 - heading по-прежнему содержит Ada;
-- в handler нет присваивания в profile или previousProfile;
+- handler передаёт setter updater function, вычисляет score из её аргумента
+  previous state и не мутирует этот snapshot независимо от имени переменной;
 - typecheck и unit test проходят.
+- Codex-review записан как PASS.
 
 Завершение:
 

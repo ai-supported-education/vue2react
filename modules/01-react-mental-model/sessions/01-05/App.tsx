@@ -5,8 +5,7 @@ type Recipient = "Alice" | "Bob";
 export default function DelayedMessage() {
   const [recipient, setRecipient] = useState<Recipient>("Alice");
   const [status, setStatus] = useState("Idle");
-  const latestRecipient = useRef(recipient);
-  latestRecipient.current = recipient;
+  const latestRecipient = useRef<Recipient>("Alice");
 
   function handleSend() {
     setStatus("Sending");
@@ -21,7 +20,11 @@ export default function DelayedMessage() {
         Recipient
         <select
           value={recipient}
-          onChange={(event) => setRecipient(event.target.value as Recipient)}
+          onChange={(event) => {
+            const nextRecipient = event.target.value as Recipient;
+            latestRecipient.current = nextRecipient;
+            setRecipient(nextRecipient);
+          }}
         >
           <option value="Alice">Alice</option>
           <option value="Bob">Bob</option>

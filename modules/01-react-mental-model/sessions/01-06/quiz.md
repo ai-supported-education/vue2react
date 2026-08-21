@@ -114,18 +114,23 @@ function IncidentsPage() {
 
 ~~~tsx
 function App() {
+  // App владеет theme state и callback переключения.
+  // Тема живёт, пока смонтирован App; reload/URL persistence не требуется.
   return (
-    <PageLayout>
-      <Sidebar>
-        <ThemeSwitch />
-      </Sidebar>
-    </PageLayout>
+    <ThemeProvider>
+      <PageLayout>
+        <Sidebar>
+          <ThemeSwitch />
+        </Sidebar>
+      </PageLayout>
+    </ThemeProvider>
   );
 }
 ~~~
 
-`ThemeSwitch` и другие глубоко вложенные компоненты должны читать тему, не
-передавая её через каждый промежуточный component. Какой механизм подходит?
+`App` остаётся владельцем theme state. `ThemeSwitch` и другие глубоко вложенные
+компоненты должны читать тему и вызывать callback владельца, не передавая контракт
+через каждый промежуточный component. Какой механизм доставки подходит?
 
 - `context` — передать стабильную cross-cutting dependency через Context
 - `props` — передать через каждый промежуточный component

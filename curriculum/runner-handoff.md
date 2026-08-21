@@ -95,6 +95,19 @@ Runner обязан проверять manifest до любой операции
 - Никогда не применяет diff автоматически.
 - После применения reference решения обычные check и finish остаются обязательными.
 
+## Author content-review
+
+Author-side lifecycle не использует learner progress:
+
+- `pnpm author:content-review session <id>` — собрать blind и consistency packets;
+- `pnpm author:content-review module <id>` — собрать интеграционный module packet;
+- `pnpm author:content-review --record <scope> <id> PASS|NEEDS_REWRITE --report <path>` — записать фактический verdict с content hash;
+- `pnpm author:content-review status <scope> <id>` — проверить, актуален ли PASS.
+
+Команда не запускает агента. Fresh subagent с `fork_turns="none"` запускает
+родительский Codex согласно `AGENTS.md`; packets и records лежат в игнорируемой
+`.authoring/` и не смешиваются с `.training/` учащегося.
+
 ## Check registry
 
 Первая версия runner должна поддерживать labels:

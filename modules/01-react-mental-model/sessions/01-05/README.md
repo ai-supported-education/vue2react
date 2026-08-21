@@ -66,8 +66,12 @@ Timeout 0 использует Alice. Для отправки это обычн�
 Starter намеренно делает следующее:
 
 ~~~tsx
-const latestRecipient = useRef(recipient);
-latestRecipient.current = recipient;
+const latestRecipient = useRef<Recipient>("Alice");
+
+function handleRecipientChange(nextRecipient: Recipient) {
+  latestRecipient.current = nextRecipient;
+  setRecipient(nextRecipient);
+}
 
 function handleSend() {
   window.setTimeout(() => {
@@ -76,7 +80,8 @@ function handleSend() {
 }
 ~~~
 
-Ref — стабильный mutable object:
+Ref — стабильный mutable object. Здесь он обновляется из пользовательского event
+handler, а не во время render:
 
 ~~~ts
 {
@@ -84,7 +89,8 @@ Ref — стабильный mutable object:
 }
 ~~~
 
-Каждый render переписывает current. Когда timeout срабатывает, он читает не snapshot операции, а самое последнее значение.
+Каждый change event переписывает current. Когда timeout срабатывает, он читает не
+snapshot операции, а самое последнее выбранное значение.
 
 В последовательности Alice → Send → Bob результат становится Sent to Bob. Технически код получил latest value, но нарушил предметный контракт.
 
@@ -94,7 +100,11 @@ Ref — стабильный mutable object:
 
 ~~~tsx
 const latestVolume = useRef(volume);
-latestVolume.current = volume;
+
+function handleVolumeChange(nextVolume: number) {
+  latestVolume.current = nextVolume;
+  setVolume(nextVolume);
+}
 
 useEffect(() => {
   const id = setInterval(() => {
@@ -105,7 +115,10 @@ useEffect(() => {
 }, []);
 ~~~
 
-Здесь latest value может быть намеренным. Interval представляет один долгоживущий внешний процесс.
+Здесь latest value может быть намеренным. Interval представляет один долгоживущий
+внешний процесс, а ref обновляется в том же event, который меняет volume. Общие
+способы синхронизации ref с props и внешними источниками относятся к следующим
+разделам; запись в ref во время render не является предлагаемым shortcut.
 
 Другой пример: search request. Обычно правильный путь — отменить или проигнорировать устаревший request, а не заставить его callback притвориться запросом нового query.
 
@@ -153,12 +166,13 @@ Starter воспроизводит:
 3. До timeout выбран Bob.
 4. Status ошибочно становится Sent to Bob.
 
-Исправьте handleSend:
+Исправьте App.tsx:
 
 - запланированная операция должна сохранить Alice;
 - select остаётся controlled;
 - status остаётся state;
 - timeout не читает latestRecipient.current;
+- удалите ставший ненужным latestRecipient и его обновление из change handler;
 - не добавляйте effect.
 
 Допустимы два решения:
@@ -170,13 +184,19 @@ Starter воспроизводит:
 
     pnpm session:check
 
-Test использует fake timers и проверяет наблюдаемый status.
+Test использует fake timers и два зеркальных сценария:
 
-Codex-review:
+- Bob → Send → Alice должен завершиться как `Sent to Bob`;
+- Alice → Send → Bob должен завершиться как `Sent to Alice`.
+
+Поэтому hardcoded имя не проходит автоматическую проверку.
+
+Codex-review — отдельный шаг. Команда ниже только собирает review-пакет и сама агента не запускает:
 
     pnpm session:review
 
-Review отклонит решение, если тест прошёл благодаря hardcoded Alice, uncontrolled select или чтению DOM.
+Review отклонит решение с uncontrolled select, чтением DOM или другим обходом семантики snapshot. Попросите
+Codex фактически проверить rubric и запишите PASS только после этого:
 
 После PASS:
 
@@ -189,7 +209,8 @@ Review отклонит решение, если тест прошёл благ�
 
 ## DONE
 
-- сценарий Alice → Send → Bob заканчивается Sent to Alice;
+- status использует recipient, выбранный в момент Send, а не initial или latest
+  hardcoded значение;
 - последующие renders не меняют уже созданную операцию;
 - нет effect и latest-ref чтения в timeout;
 - test зелёный;

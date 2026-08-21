@@ -6,6 +6,8 @@
 - Select остаётся controlled.
 - Нет effect для копирования recipient.
 - Нет чтения latest ref внутри timeout.
+- Нет оставшегося latestRecipient ref или его синхронизации: после исправления у
+  него нет предметной обязанности.
 - Status остаётся React state.
 
 ## Допустимо

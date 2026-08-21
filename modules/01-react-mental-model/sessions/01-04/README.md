@@ -146,11 +146,13 @@ React может вызывать updater дополнительно в developm
 
 Unit test проверяет два clicks: значения должны стать 3 и 6.
 
-После зелёных тестов нужен Codex-review:
+После зелёных тестов нужен отдельный Codex-review. Команда ниже только собирает
+review-пакет и сама агента не запускает:
 
     pnpm session:review
 
-В review проверяется не только результат, но и три updater functions без внешнего чтения count. Если Codex подтвердил rubric:
+Попросите Codex проверить не только результат, но и три updater functions без внешнего чтения count.
+Записывайте PASS только после фактической проверки rubric:
 
     pnpm session:review --record PASS
 

@@ -41,6 +41,9 @@ export interface SessionDefinition {
   outcome: string;
   done: string;
   checks: CheckLabel[];
+  requires: string[];
+  introduces: string[];
+  defers: string[];
 }
 
 export interface CourseModule {
@@ -64,6 +67,7 @@ export interface CourseManifest {
   version: number;
   language: string;
   audience: string;
+  assumedConcepts: string[];
   estimatedHours: {
     min: number;
     max: number;

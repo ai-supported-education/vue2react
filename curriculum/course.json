@@ -29,16 +29,51 @@
           "kind": "observe",
           "outcome": "Предсказывать, какие значения и обработчики принадлежат конкретному рендеру.",
           "done": "Все прогнозы в интерактивном примере объяснены через snapshot, а проверочный quiz пройден.",
-          "checks": ["quiz", "review"]
+          "checks": [
+            "quiz",
+            "review"
+          ],
+          "requires": [
+            "javascript",
+            "typescript",
+            "vue-3",
+            "composition-api"
+          ],
+          "introduces": [
+            "react-render-snapshot",
+            "react-state-update-signal",
+            "state-reference-identity",
+            "async-handler-snapshot",
+            "render-closure"
+          ],
+          "defers": [
+            "react-key-identity"
+          ]
         },
         {
           "id": "01-02",
-          "title": "Изменение state как сигнал",
+          "title": "State как память компонента",
           "minutes": 40,
           "kind": "complete",
-          "outcome": "Отличать изменение обычной переменной от запроса нового рендера через setter.",
-          "done": "Счётчик обновляет UI только через state, типы и поведенческий тест проходят.",
-          "checks": ["typecheck", "unit"]
+          "outcome": "Заменять внешнюю mutable-переменную состоянием, принадлежащим экземпляру React-компонента.",
+          "done": "Счётчик обновляет UI только через component state, автоматические checks и Codex-review проходят.",
+          "checks": [
+            "typecheck",
+            "unit",
+            "review"
+          ],
+          "requires": [
+            "javascript",
+            "react-render-snapshot",
+            "react-state-update-signal"
+          ],
+          "introduces": [
+            "component-local-state"
+          ],
+          "defers": [
+            "immutable-state-update",
+            "functional-state-updater"
+          ]
         },
         {
           "id": "01-03",
@@ -46,8 +81,24 @@
           "minutes": 45,
           "kind": "debug",
           "outcome": "Находить прямую мутацию объекта state и объяснять, почему React её не замечает.",
-          "done": "Профиль редактируется иммутабельно, предыдущий snapshot не изменяется, тест проходит.",
-          "checks": ["typecheck", "unit"]
+          "done": "Профиль редактируется иммутабельно, предыдущий snapshot не изменяется, tests и Codex-review проходят.",
+          "checks": [
+            "typecheck",
+            "unit",
+            "review"
+          ],
+          "requires": [
+            "react-render-snapshot",
+            "react-state-update-signal",
+            "state-reference-identity"
+          ],
+          "introduces": [
+            "immutable-state-update",
+            "functional-state-updater"
+          ],
+          "defers": [
+            "immutable-collection-update"
+          ]
         },
         {
           "id": "01-04",
@@ -56,7 +107,20 @@
           "kind": "debug",
           "outcome": "Использовать updater-функцию, когда следующее значение зависит от предыдущего.",
           "done": "Одна команда увеличивает счётчик три раза и объяснение не опирается на синхронную мутацию.",
-          "checks": ["unit", "review"]
+          "checks": [
+            "unit",
+            "review"
+          ],
+          "requires": [
+            "javascript",
+            "react-render-snapshot",
+            "react-state-update-signal",
+            "functional-state-updater"
+          ],
+          "introduces": [
+            "batched-state-updates"
+          ],
+          "defers": []
         },
         {
           "id": "01-05",
@@ -65,7 +129,24 @@
           "kind": "observe",
           "outcome": "Понимать, почему callback видит значения рендера, в котором был создан.",
           "done": "Поведение отложенной отправки предсказано и исправлено согласно условию без лишнего effect.",
-          "checks": ["unit", "review"]
+          "checks": [
+            "unit",
+            "review"
+          ],
+          "requires": [
+            "javascript",
+            "react-render-snapshot",
+            "react-state-update-signal",
+            "async-handler-snapshot",
+            "render-closure"
+          ],
+          "introduces": [
+            "operation-snapshot-contract",
+            "latest-ref-read"
+          ],
+          "defers": [
+            "stale-closure-diagnosis"
+          ]
         },
         {
           "id": "01-06",
@@ -73,8 +154,29 @@
           "minutes": 50,
           "kind": "compare",
           "outcome": "Сопоставлять state, derived values и watchers без ложного переноса Vue-модели.",
-          "done": "Для шести сценариев выбран React-механизм и письменно объяснено отличие от Vue.",
-          "checks": ["quiz", "review"]
+          "done": "Для восьми сценариев выбран React-механизм и письменно объяснено отличие от Vue.",
+          "checks": [
+            "quiz",
+            "review"
+          ],
+          "requires": [
+            "vue-3",
+            "composition-api",
+            "react-render-snapshot",
+            "react-state-update-signal"
+          ],
+          "introduces": [
+            "react-vue-reactivity-differences",
+            "render-time-derived-data",
+            "effect-external-synchronization",
+            "state-ownership-and-lifecycle",
+            "url-state-ownership-overview",
+            "server-state-ownership-overview",
+            "context-delivery-overview",
+            "shared-client-store-overview",
+            "non-rendering-ref-overview"
+          ],
+          "defers": []
         }
       ]
     },
@@ -92,7 +194,22 @@
           "kind": "complete",
           "outcome": "Правильно размещать JavaScript-выражения, attributes и children в JSX.",
           "done": "Карточка выводит все вычисляемые поля без ручной работы с DOM.",
-          "checks": ["typecheck", "unit"]
+          "checks": [
+            "typecheck",
+            "unit"
+          ],
+          "requires": [
+            "javascript",
+            "typescript",
+            "html-css",
+            "react-render-snapshot"
+          ],
+          "introduces": [
+            "jsx-expression-contexts"
+          ],
+          "defers": [
+            "conditional-rendering-strategies"
+          ]
         },
         {
           "id": "02-02",
@@ -101,7 +218,22 @@
           "kind": "build",
           "outcome": "Воспринимать компонент как вычисление UI, а не как изменяемый экземпляр шаблона.",
           "done": "Независимый StatusBadge реализован функцией и проходит три поведенческих сценария.",
-          "checks": ["typecheck", "unit"]
+          "checks": [
+            "typecheck",
+            "unit"
+          ],
+          "requires": [
+            "javascript",
+            "react-render-snapshot",
+            "jsx-expression-contexts"
+          ],
+          "introduces": [
+            "function-component-model",
+            "component-instance-isolation"
+          ],
+          "defers": [
+            "readonly-props-contract"
+          ]
         },
         {
           "id": "02-03",
@@ -110,7 +242,22 @@
           "kind": "complete",
           "outcome": "Проектировать минимальный readonly props-контракт с осмысленными defaults.",
           "done": "Компонент принимает только заявленные варианты и не мутирует входные данные.",
-          "checks": ["typecheck", "unit"]
+          "checks": [
+            "typecheck",
+            "unit"
+          ],
+          "requires": [
+            "typescript",
+            "function-component-model",
+            "component-instance-isolation"
+          ],
+          "introduces": [
+            "readonly-props-contract",
+            "prop-default-values"
+          ],
+          "defers": [
+            "react-children-composition"
+          ]
         },
         {
           "id": "02-04",
@@ -119,7 +266,21 @@
           "kind": "refactor",
           "outcome": "Заменять разрастающиеся флаги композицией и явными слотами React.",
           "done": "Panel поддерживает header, content и actions без специальных boolean props.",
-          "checks": ["typecheck", "unit", "review"]
+          "checks": [
+            "typecheck",
+            "unit",
+            "review"
+          ],
+          "requires": [
+            "jsx-expression-contexts",
+            "function-component-model",
+            "readonly-props-contract"
+          ],
+          "introduces": [
+            "react-children-composition",
+            "explicit-component-slots"
+          ],
+          "defers": []
         },
         {
           "id": "02-05",
@@ -128,7 +289,21 @@
           "kind": "build",
           "outcome": "Выбирать ранний return, тернарное выражение или логическое условие по структуре UI.",
           "done": "Empty, loading и content состояния взаимоисключающи и проверяются через доступный UI.",
-          "checks": ["unit", "a11y"]
+          "checks": [
+            "unit",
+            "a11y"
+          ],
+          "requires": [
+            "javascript",
+            "jsx-expression-contexts",
+            "function-component-model"
+          ],
+          "introduces": [
+            "conditional-rendering-strategies"
+          ],
+          "defers": [
+            "discriminated-ui-state"
+          ]
         },
         {
           "id": "02-06",
@@ -137,7 +312,22 @@
           "kind": "integrate",
           "outcome": "Собрать небольшой UI из нескольких компонентов с чистыми контрактами.",
           "done": "DeviceSummary собран из переиспользуемых частей, не содержит дублирования и проходит интеграционный тест.",
-          "checks": ["typecheck", "lint", "integration", "review"]
+          "checks": [
+            "typecheck",
+            "lint",
+            "integration",
+            "review"
+          ],
+          "requires": [
+            "function-component-model",
+            "readonly-props-contract",
+            "react-children-composition",
+            "conditional-rendering-strategies"
+          ],
+          "introduces": [
+            "component-contract-composition"
+          ],
+          "defers": []
         }
       ]
     },
@@ -155,7 +345,21 @@
           "kind": "debug",
           "outcome": "Распознавать данные, которые должны переживать рендер и вызывать новый UI.",
           "done": "Переключатель сохраняет значение между рендерами и не использует модульную переменную.",
-          "checks": ["unit"]
+          "checks": [
+            "unit"
+          ],
+          "requires": [
+            "react-render-snapshot",
+            "react-state-update-signal",
+            "component-instance-isolation"
+          ],
+          "introduces": [
+            "state-lifetime-across-renders",
+            "module-state-isolation"
+          ],
+          "defers": [
+            "controlled-input-contract"
+          ]
         },
         {
           "id": "03-02",
@@ -164,7 +368,19 @@
           "kind": "build",
           "outcome": "Отделять DOM event от предметного callback-контракта компонента.",
           "done": "Кнопка подтверждения сообщает намерение родителю без передачи DOM event наружу.",
-          "checks": ["typecheck", "unit"]
+          "checks": [
+            "typecheck",
+            "unit"
+          ],
+          "requires": [
+            "typescript",
+            "function-component-model",
+            "readonly-props-contract"
+          ],
+          "introduces": [
+            "semantic-callback-contracts"
+          ],
+          "defers": []
         },
         {
           "id": "03-03",
@@ -173,7 +389,24 @@
           "kind": "refactor",
           "outcome": "Устранять противоречивые boolean-флаги с помощью явного состояния.",
           "done": "AsyncPanel использует взаимоисключающую модель idle/loading/success/error.",
-          "checks": ["typecheck", "unit", "review"]
+          "checks": [
+            "typecheck",
+            "unit",
+            "review"
+          ],
+          "requires": [
+            "typescript",
+            "react-state-update-signal",
+            "state-lifetime-across-renders",
+            "conditional-rendering-strategies"
+          ],
+          "introduces": [
+            "discriminated-ui-state"
+          ],
+          "defers": [
+            "reducer-state-transitions",
+            "typed-action-model"
+          ]
         },
         {
           "id": "03-04",
@@ -182,7 +415,20 @@
           "kind": "debug",
           "outcome": "Добавлять, удалять и обновлять элементы без мутации массива и его элементов.",
           "done": "Редактор списка сохраняет прошлые snapshots и проходит тест add/edit/remove.",
-          "checks": ["unit"]
+          "checks": [
+            "unit"
+          ],
+          "requires": [
+            "javascript",
+            "immutable-state-update",
+            "state-reference-identity"
+          ],
+          "introduces": [
+            "immutable-collection-update"
+          ],
+          "defers": [
+            "stable-list-item-identity"
+          ]
         },
         {
           "id": "03-05",
@@ -191,7 +437,22 @@
           "kind": "refactor",
           "outcome": "Вычислять данные во время рендера, если их можно получить из существующих props/state.",
           "done": "Дублированное состояние удалено, фильтр остаётся корректным после всех изменений.",
-          "checks": ["unit", "review"]
+          "checks": [
+            "unit",
+            "review"
+          ],
+          "requires": [
+            "javascript",
+            "react-render-snapshot",
+            "react-state-update-signal",
+            "render-time-derived-data"
+          ],
+          "introduces": [
+            "derived-state-elimination"
+          ],
+          "defers": [
+            "unnecessary-effect-elimination"
+          ]
         },
         {
           "id": "03-06",
@@ -200,7 +461,21 @@
           "kind": "build",
           "outcome": "Применять reducer для нескольких связанных переходов, а не как замену любому useState.",
           "done": "Модель draft/submitting/success/failure имеет исчерпывающие actions и тест reducer.",
-          "checks": ["typecheck", "unit", "review"]
+          "checks": [
+            "typecheck",
+            "unit",
+            "review"
+          ],
+          "requires": [
+            "typescript",
+            "react-state-update-signal",
+            "discriminated-ui-state"
+          ],
+          "introduces": [
+            "reducer-state-transitions",
+            "typed-action-model"
+          ],
+          "defers": []
         }
       ]
     },
@@ -218,7 +493,22 @@
           "kind": "observe",
           "outcome": "Предсказывать сохранение state при reorder и объяснять роль key.",
           "done": "Все сценарии reorder сопоставлены с правильным поведением локального state.",
-          "checks": ["quiz"]
+          "checks": [
+            "quiz"
+          ],
+          "requires": [
+            "react-render-snapshot",
+            "state-lifetime-across-renders",
+            "function-component-model"
+          ],
+          "introduces": [
+            "react-key-identity",
+            "state-preservation-by-position"
+          ],
+          "defers": [
+            "stable-list-item-identity",
+            "state-reset-by-key-and-position"
+          ]
         },
         {
           "id": "04-02",
@@ -227,7 +517,18 @@
           "kind": "build",
           "outcome": "Поддерживать стабильную identity элементов при add/edit/remove.",
           "done": "Фокус и редактируемое значение не перескакивают после удаления соседнего элемента.",
-          "checks": ["unit"]
+          "checks": [
+            "unit"
+          ],
+          "requires": [
+            "immutable-collection-update",
+            "react-key-identity",
+            "state-preservation-by-position"
+          ],
+          "introduces": [
+            "stable-list-item-identity"
+          ],
+          "defers": []
         },
         {
           "id": "04-03",
@@ -236,7 +537,21 @@
           "kind": "complete",
           "outcome": "Связывать value и onChange без второго источника истины.",
           "done": "Поле управляется родительским state и корректно реагирует на внешний reset.",
-          "checks": ["unit"]
+          "checks": [
+            "unit"
+          ],
+          "requires": [
+            "react-state-update-signal",
+            "state-lifetime-across-renders",
+            "semantic-callback-contracts"
+          ],
+          "introduces": [
+            "controlled-input-contract",
+            "single-source-of-truth"
+          ],
+          "defers": [
+            "shared-state-ownership"
+          ]
         },
         {
           "id": "04-04",
@@ -245,7 +560,22 @@
           "kind": "refactor",
           "outcome": "Размещать state у ближайшего общего владельца согласованных компонентов.",
           "done": "Два фильтра синхронизированы одним источником истины без context или store.",
-          "checks": ["unit", "review"]
+          "checks": [
+            "unit",
+            "review"
+          ],
+          "requires": [
+            "readonly-props-contract",
+            "semantic-callback-contracts",
+            "controlled-input-contract",
+            "single-source-of-truth"
+          ],
+          "introduces": [
+            "shared-state-ownership"
+          ],
+          "defers": [
+            "react-context-dependency"
+          ]
         },
         {
           "id": "04-05",
@@ -254,7 +584,19 @@
           "kind": "debug",
           "outcome": "Управлять reset через position и key вместо effect.",
           "done": "Форма сбрасывается только при смене выбранной сущности.",
-          "checks": ["unit", "review"]
+          "checks": [
+            "unit",
+            "review"
+          ],
+          "requires": [
+            "react-key-identity",
+            "state-preservation-by-position",
+            "controlled-input-contract"
+          ],
+          "introduces": [
+            "state-reset-by-key-and-position"
+          ],
+          "defers": []
         },
         {
           "id": "04-06",
@@ -263,7 +605,22 @@
           "kind": "integrate",
           "outcome": "Объединить identity, controlled inputs и derived filtering.",
           "done": "Каталог ищется, сортируется и редактируется без рассинхронизации state.",
-          "checks": ["typecheck", "lint", "integration"]
+          "checks": [
+            "typecheck",
+            "lint",
+            "integration"
+          ],
+          "requires": [
+            "immutable-collection-update",
+            "render-time-derived-data",
+            "stable-list-item-identity",
+            "controlled-input-contract",
+            "shared-state-ownership"
+          ],
+          "introduces": [
+            "collection-state-coordination"
+          ],
+          "defers": []
         }
       ]
     },
@@ -281,7 +638,25 @@
           "kind": "compare",
           "outcome": "Отличать синхронизацию с внешней системой от вычисления данных и реакции на событие.",
           "done": "В восьми сценариях effect используется только там, где есть внешний процесс.",
-          "checks": ["quiz", "review"]
+          "checks": [
+            "quiz",
+            "review"
+          ],
+          "requires": [
+            "vue-3",
+            "composition-api",
+            "react-render-snapshot",
+            "semantic-callback-contracts",
+            "render-time-derived-data",
+            "effect-external-synchronization"
+          ],
+          "introduces": [
+            "effect-vs-event-vs-render-decision"
+          ],
+          "defers": [
+            "effect-setup-cleanup-symmetry",
+            "effect-reactive-dependencies"
+          ]
         },
         {
           "id": "05-02",
@@ -290,7 +665,20 @@
           "kind": "complete",
           "outcome": "Подписывать React state на внешний browser API и явно описывать зависимости.",
           "done": "Компонент корректно отражает online/offline состояние.",
-          "checks": ["unit"]
+          "checks": [
+            "unit"
+          ],
+          "requires": [
+            "web-development",
+            "react-state-update-signal",
+            "effect-external-synchronization"
+          ],
+          "introduces": [
+            "browser-api-effect-synchronization"
+          ],
+          "defers": [
+            "effect-setup-cleanup-symmetry"
+          ]
         },
         {
           "id": "05-03",
@@ -299,7 +687,19 @@
           "kind": "debug",
           "outcome": "Гарантировать симметричные setup и cleanup при mount, update и unmount.",
           "done": "Повторный mount не создаёт дублирующих listeners, тест утечки проходит.",
-          "checks": ["unit"]
+          "checks": [
+            "unit"
+          ],
+          "requires": [
+            "effect-external-synchronization",
+            "browser-api-effect-synchronization"
+          ],
+          "introduces": [
+            "effect-setup-cleanup-symmetry"
+          ],
+          "defers": [
+            "effect-reactive-dependencies"
+          ]
         },
         {
           "id": "05-04",
@@ -308,7 +708,24 @@
           "kind": "debug",
           "outcome": "Исправлять stale closure без отключения exhaustive-deps.",
           "done": "Interval использует актуальную конфигурацию и не пересоздаётся без причины.",
-          "checks": ["lint", "unit", "review"]
+          "checks": [
+            "lint",
+            "unit",
+            "review"
+          ],
+          "requires": [
+            "javascript",
+            "render-closure",
+            "effect-external-synchronization",
+            "effect-setup-cleanup-symmetry"
+          ],
+          "introduces": [
+            "effect-reactive-dependencies",
+            "stale-closure-diagnosis"
+          ],
+          "defers": [
+            "stale-async-result-cancellation"
+          ]
         },
         {
           "id": "05-05",
@@ -317,7 +734,19 @@
           "kind": "debug",
           "outcome": "Предотвращать применение результата устаревшего асинхронного запроса.",
           "done": "Быстрое переключение выбора не показывает ответ предыдущего запроса.",
-          "checks": ["unit"]
+          "checks": [
+            "unit"
+          ],
+          "requires": [
+            "javascript",
+            "effect-external-synchronization",
+            "effect-setup-cleanup-symmetry",
+            "effect-reactive-dependencies"
+          ],
+          "introduces": [
+            "stale-async-result-cancellation"
+          ],
+          "defers": []
         },
         {
           "id": "05-06",
@@ -326,7 +755,20 @@
           "kind": "refactor",
           "outcome": "Заменять цепочки effects вычислением во время render или обработчиком события.",
           "done": "Компонент не имеет дублированного state и выполняет меньше рендеров при том же поведении.",
-          "checks": ["unit", "review"]
+          "checks": [
+            "unit",
+            "review"
+          ],
+          "requires": [
+            "react-render-snapshot",
+            "semantic-callback-contracts",
+            "render-time-derived-data",
+            "effect-external-synchronization"
+          ],
+          "introduces": [
+            "unnecessary-effect-elimination"
+          ],
+          "defers": []
         }
       ]
     },
@@ -344,7 +786,22 @@
           "kind": "complete",
           "outcome": "Использовать ref для императивного действия, недоступного декларативно.",
           "done": "После открытия диалога фокус попадает в ожидаемое поле.",
-          "checks": ["unit", "a11y"]
+          "checks": [
+            "unit",
+            "a11y"
+          ],
+          "requires": [
+            "html-css",
+            "web-development",
+            "function-component-model"
+          ],
+          "introduces": [
+            "dom-ref-imperative-access",
+            "focus-management"
+          ],
+          "defers": [
+            "accessible-dialog-focus-lifecycle"
+          ]
         },
         {
           "id": "06-02",
@@ -353,7 +810,19 @@
           "kind": "compare",
           "outcome": "Выбирать ref только для значения, которое не участвует в отображении.",
           "done": "Timer хранит технический идентификатор в ref, а видимые данные — в state.",
-          "checks": ["unit", "review"]
+          "checks": [
+            "unit",
+            "review"
+          ],
+          "requires": [
+            "react-render-snapshot",
+            "react-state-update-signal",
+            "dom-ref-imperative-access"
+          ],
+          "introduces": [
+            "non-rendering-mutable-ref"
+          ],
+          "defers": []
         },
         {
           "id": "06-03",
@@ -362,7 +831,23 @@
           "kind": "refactor",
           "outcome": "Убрать prop drilling для устойчивой cross-cutting зависимости.",
           "done": "Theme dependency передаётся через типизированный provider с явной ошибкой вне provider.",
-          "checks": ["typecheck", "unit"]
+          "checks": [
+            "typecheck",
+            "unit"
+          ],
+          "requires": [
+            "typescript",
+            "function-component-model",
+            "readonly-props-contract",
+            "shared-state-ownership"
+          ],
+          "introduces": [
+            "react-context-dependency",
+            "typed-context-provider"
+          ],
+          "defers": [
+            "context-update-boundaries"
+          ]
         },
         {
           "id": "06-04",
@@ -371,7 +856,21 @@
           "kind": "debug",
           "outcome": "Находить широкие Context values, вызывающие ненужные обновления потребителей.",
           "done": "Независимый потребитель не обновляется при смене несвязанного значения.",
-          "checks": ["unit", "review"]
+          "checks": [
+            "unit",
+            "review"
+          ],
+          "requires": [
+            "react-render-snapshot",
+            "state-reference-identity",
+            "react-context-dependency",
+            "typed-context-provider"
+          ],
+          "introduces": [
+            "context-update-boundaries",
+            "context-value-stability"
+          ],
+          "defers": []
         },
         {
           "id": "06-05",
@@ -380,7 +879,22 @@
           "kind": "refactor",
           "outcome": "Извлекать переиспользуемую stateful-логику без скрытия предметного поведения.",
           "done": "useDisclosure используется двумя компонентами и имеет изолированный тест.",
-          "checks": ["typecheck", "unit"]
+          "checks": [
+            "typecheck",
+            "unit"
+          ],
+          "requires": [
+            "typescript",
+            "react-state-update-signal",
+            "semantic-callback-contracts"
+          ],
+          "introduces": [
+            "custom-hook-contract",
+            "stateful-logic-extraction"
+          ],
+          "defers": [
+            "accessible-dialog-focus-lifecycle"
+          ]
         },
         {
           "id": "06-06",
@@ -389,7 +903,23 @@
           "kind": "integrate",
           "outcome": "Собрать доступный dialog workflow с минимальными escape hatches.",
           "done": "Диалог открывается из Context-команды, управляет focus и восстанавливает его после закрытия.",
-          "checks": ["integration", "a11y", "review"]
+          "checks": [
+            "integration",
+            "a11y",
+            "review"
+          ],
+          "requires": [
+            "dom-ref-imperative-access",
+            "focus-management",
+            "react-context-dependency",
+            "typed-context-provider",
+            "custom-hook-contract",
+            "stateful-logic-extraction"
+          ],
+          "introduces": [
+            "accessible-dialog-focus-lifecycle"
+          ],
+          "defers": []
         }
       ]
     },
@@ -407,7 +937,20 @@
           "kind": "complete",
           "outcome": "Типизировать props и предметные callbacks без any и широких DOM-типов.",
           "done": "Компонент отклоняет некорректные props на этапе typecheck.",
-          "checks": ["typecheck"]
+          "checks": [
+            "typecheck"
+          ],
+          "requires": [
+            "typescript",
+            "readonly-props-contract",
+            "semantic-callback-contracts"
+          ],
+          "introduces": [
+            "typed-props-event-contract"
+          ],
+          "defers": [
+            "discriminated-props-union"
+          ]
         },
         {
           "id": "07-02",
@@ -416,7 +959,22 @@
           "kind": "refactor",
           "outcome": "Представлять взаимоисключающие варианты props через union.",
           "done": "Невозможные комбинации состояния Alert не компилируются.",
-          "checks": ["typecheck", "unit"]
+          "checks": [
+            "typecheck",
+            "unit"
+          ],
+          "requires": [
+            "typescript",
+            "readonly-props-contract",
+            "discriminated-ui-state",
+            "typed-props-event-contract"
+          ],
+          "introduces": [
+            "discriminated-props-union"
+          ],
+          "defers": [
+            "schema-derived-form-contract"
+          ]
         },
         {
           "id": "07-03",
@@ -425,7 +983,22 @@
           "kind": "complete",
           "outcome": "Различать ReactNode, ReactElement и функцию-ребёнка.",
           "done": "DataState предоставляет типизированный render callback для полученных данных.",
-          "checks": ["typecheck", "unit"]
+          "checks": [
+            "typecheck",
+            "unit"
+          ],
+          "requires": [
+            "typescript",
+            "react-children-composition",
+            "readonly-props-contract",
+            "typed-props-event-contract"
+          ],
+          "introduces": [
+            "typed-render-callback"
+          ],
+          "defers": [
+            "generic-component-props"
+          ]
         },
         {
           "id": "07-04",
@@ -434,7 +1007,20 @@
           "kind": "build",
           "outcome": "Сохранять тип элемента через generic props без assertions.",
           "done": "GenericList выводит два разных доменных типа и проверяет key extractor.",
-          "checks": ["typecheck", "unit"]
+          "checks": [
+            "typecheck",
+            "unit"
+          ],
+          "requires": [
+            "typescript",
+            "react-key-identity",
+            "immutable-collection-update",
+            "typed-props-event-contract"
+          ],
+          "introduces": [
+            "generic-component-props"
+          ],
+          "defers": []
         },
         {
           "id": "07-05",
@@ -443,7 +1029,22 @@
           "kind": "debug",
           "outcome": "Работать с nullable DOM refs и точными event-типами без non-null assertions.",
           "done": "Форма компилируется в strict mode и безопасно обрабатывает отсутствие DOM node.",
-          "checks": ["typecheck", "lint"]
+          "checks": [
+            "typecheck",
+            "lint"
+          ],
+          "requires": [
+            "typescript",
+            "dom-ref-imperative-access",
+            "controlled-input-contract",
+            "typed-props-event-contract"
+          ],
+          "introduces": [
+            "nullable-ref-event-safety"
+          ],
+          "defers": [
+            "accessible-field-errors"
+          ]
         },
         {
           "id": "07-06",
@@ -452,7 +1053,24 @@
           "kind": "integrate",
           "outcome": "Спроектировать public API hook и provider с исчерпывающими состояниями.",
           "done": "useSelection скрывает внутреннее представление и запрещает несуществующие идентификаторы.",
-          "checks": ["typecheck", "unit", "review"]
+          "checks": [
+            "typecheck",
+            "unit",
+            "review"
+          ],
+          "requires": [
+            "typescript",
+            "custom-hook-contract",
+            "react-context-dependency",
+            "discriminated-ui-state",
+            "typed-props-event-contract"
+          ],
+          "introduces": [
+            "typed-hook-provider-api"
+          ],
+          "defers": [
+            "client-state-placement"
+          ]
         }
       ]
     },
@@ -470,7 +1088,19 @@
           "kind": "build",
           "outcome": "Создать минимальное дерево маршрутов без ручного управления location.",
           "done": "Три страницы доступны через Link и browser back/forward.",
-          "checks": ["integration"]
+          "checks": [
+            "integration"
+          ],
+          "requires": [
+            "web-development",
+            "component-contract-composition"
+          ],
+          "introduces": [
+            "client-route-tree"
+          ],
+          "defers": [
+            "nested-route-layout"
+          ]
         },
         {
           "id": "08-02",
@@ -479,7 +1109,19 @@
           "kind": "refactor",
           "outcome": "Выносить устойчивую оболочку группы страниц в layout route.",
           "done": "Навигация и header сохраняются при смене дочерней страницы.",
-          "checks": ["integration"]
+          "checks": [
+            "integration"
+          ],
+          "requires": [
+            "client-route-tree",
+            "component-contract-composition"
+          ],
+          "introduces": [
+            "nested-route-layout"
+          ],
+          "defers": [
+            "protected-route-return-url"
+          ]
         },
         {
           "id": "08-03",
@@ -488,7 +1130,19 @@
           "kind": "complete",
           "outcome": "Валидировать params на границе страницы и обрабатывать неизвестный id.",
           "done": "Detail page показывает сущность либо понятное not-found состояние.",
-          "checks": ["typecheck", "integration"]
+          "checks": [
+            "typecheck",
+            "integration"
+          ],
+          "requires": [
+            "typescript",
+            "client-route-tree",
+            "discriminated-ui-state"
+          ],
+          "introduces": [
+            "validated-route-params"
+          ],
+          "defers": []
         },
         {
           "id": "08-04",
@@ -497,7 +1151,20 @@
           "kind": "build",
           "outcome": "Хранить разделяемые фильтры в URL без дублирования в local state.",
           "done": "Reload и скопированная ссылка восстанавливают фильтры.",
-          "checks": ["integration"]
+          "checks": [
+            "integration"
+          ],
+          "requires": [
+            "client-route-tree",
+            "collection-state-coordination",
+            "render-time-derived-data"
+          ],
+          "introduces": [
+            "url-search-params-state"
+          ],
+          "defers": [
+            "client-state-placement"
+          ]
         },
         {
           "id": "08-05",
@@ -506,7 +1173,18 @@
           "kind": "build",
           "outcome": "Ограничивать группу маршрутов через auth-aware layout и redirect.",
           "done": "Гость возвращается на исходный URL после успешного входа.",
-          "checks": ["integration"]
+          "checks": [
+            "integration"
+          ],
+          "requires": [
+            "nested-route-layout",
+            "url-search-params-state",
+            "react-context-dependency"
+          ],
+          "introduces": [
+            "protected-route-return-url"
+          ],
+          "defers": []
         },
         {
           "id": "08-06",
@@ -515,7 +1193,20 @@
           "kind": "integrate",
           "outcome": "Добавить route-level code splitting и локализованную обработку ошибки.",
           "done": "Тяжёлая страница загружается лениво, а ошибка не разрушает app shell.",
-          "checks": ["build", "integration", "review"]
+          "checks": [
+            "build",
+            "integration",
+            "review"
+          ],
+          "requires": [
+            "client-route-tree",
+            "nested-route-layout",
+            "conditional-rendering-strategies"
+          ],
+          "introduces": [
+            "lazy-route-error-boundary"
+          ],
+          "defers": []
         }
       ]
     },
@@ -533,7 +1224,21 @@
           "kind": "debug",
           "outcome": "Использовать submit, labels и buttons без ручной имитации поведения формы.",
           "done": "Форма отправляется клавишей Enter и доступна по label.",
-          "checks": ["unit", "a11y"]
+          "checks": [
+            "unit",
+            "a11y"
+          ],
+          "requires": [
+            "html-css",
+            "semantic-callback-contracts",
+            "controlled-input-contract"
+          ],
+          "introduces": [
+            "native-form-semantics"
+          ],
+          "defers": [
+            "accessible-field-errors"
+          ]
         },
         {
           "id": "09-02",
@@ -542,7 +1247,21 @@
           "kind": "complete",
           "outcome": "Подключить поля к React Hook Form без дублирующего local state.",
           "done": "Форма собирает типизированные значения и корректно сбрасывается.",
-          "checks": ["typecheck", "unit"]
+          "checks": [
+            "typecheck",
+            "unit"
+          ],
+          "requires": [
+            "typescript",
+            "native-form-semantics",
+            "controlled-input-contract"
+          ],
+          "introduces": [
+            "react-hook-form-registration"
+          ],
+          "defers": [
+            "schema-derived-form-contract"
+          ]
         },
         {
           "id": "09-03",
@@ -551,7 +1270,21 @@
           "kind": "build",
           "outcome": "Сделать schema единственным контрактом входных данных формы.",
           "done": "Тип данных выведен из schema, невалидные значения блокируют submit.",
-          "checks": ["typecheck", "unit"]
+          "checks": [
+            "typecheck",
+            "unit"
+          ],
+          "requires": [
+            "typescript",
+            "react-hook-form-registration",
+            "discriminated-ui-state"
+          ],
+          "introduces": [
+            "schema-derived-form-contract"
+          ],
+          "defers": [
+            "accessible-field-errors"
+          ]
         },
         {
           "id": "09-04",
@@ -560,7 +1293,21 @@
           "kind": "complete",
           "outcome": "Связать ошибки с полями и управлять focus после неуспешной проверки.",
           "done": "Screen reader получает ошибку, focus переходит к первому невалидному полю.",
-          "checks": ["unit", "a11y"]
+          "checks": [
+            "unit",
+            "a11y"
+          ],
+          "requires": [
+            "native-form-semantics",
+            "schema-derived-form-contract",
+            "dom-ref-imperative-access"
+          ],
+          "introduces": [
+            "accessible-field-errors"
+          ],
+          "defers": [
+            "form-submit-error-taxonomy"
+          ]
         },
         {
           "id": "09-05",
@@ -569,7 +1316,22 @@
           "kind": "debug",
           "outcome": "Различать field, form и transport errors.",
           "done": "Конфликт имени показывается у поля, сетевой сбой — на уровне формы.",
-          "checks": ["integration", "a11y"]
+          "checks": [
+            "integration",
+            "a11y"
+          ],
+          "requires": [
+            "react-hook-form-registration",
+            "schema-derived-form-contract",
+            "accessible-field-errors",
+            "discriminated-ui-state"
+          ],
+          "introduces": [
+            "form-submit-error-taxonomy"
+          ],
+          "defers": [
+            "integrated-incident-form"
+          ]
         },
         {
           "id": "09-06",
@@ -578,7 +1340,22 @@
           "kind": "integrate",
           "outcome": "Собрать предметную форму с schema, conditional fields и submit states.",
           "done": "Форма проходит happy path, validation и server-error сценарии.",
-          "checks": ["typecheck", "integration", "review"]
+          "checks": [
+            "typecheck",
+            "integration",
+            "review"
+          ],
+          "requires": [
+            "react-hook-form-registration",
+            "schema-derived-form-contract",
+            "accessible-field-errors",
+            "form-submit-error-taxonomy",
+            "conditional-rendering-strategies"
+          ],
+          "introduces": [
+            "integrated-incident-form"
+          ],
+          "defers": []
         }
       ]
     },
@@ -596,7 +1373,23 @@
           "kind": "compare",
           "outcome": "Классифицировать ownership, freshness и cache requirements данных.",
           "done": "Для десяти примеров выбран локальный state, URL, store или query cache.",
-          "checks": ["quiz", "review"]
+          "checks": [
+            "quiz",
+            "review"
+          ],
+          "requires": [
+            "state-lifetime-across-renders",
+            "url-search-params-state",
+            "react-context-dependency",
+            "render-time-derived-data"
+          ],
+          "introduces": [
+            "server-state-ownership"
+          ],
+          "defers": [
+            "msw-api-scenario-contract",
+            "structured-query-keys"
+          ]
         },
         {
           "id": "10-02",
@@ -605,7 +1398,21 @@
           "kind": "build",
           "outcome": "Создать повторяемый handler с success и error сценариями.",
           "done": "Один и тот же handler работает в браузере и интеграционном тесте.",
-          "checks": ["typecheck", "integration"]
+          "checks": [
+            "typecheck",
+            "integration"
+          ],
+          "requires": [
+            "typescript",
+            "server-state-ownership",
+            "schema-derived-form-contract"
+          ],
+          "introduces": [
+            "msw-api-scenario-contract"
+          ],
+          "defers": [
+            "structured-query-keys"
+          ]
         },
         {
           "id": "10-03",
@@ -614,7 +1421,20 @@
           "kind": "complete",
           "outcome": "Организовать query keys по ресурсу и параметрам запроса.",
           "done": "Два набора фильтров имеют независимые cache entries.",
-          "checks": ["integration"]
+          "checks": [
+            "integration"
+          ],
+          "requires": [
+            "server-state-ownership",
+            "msw-api-scenario-contract",
+            "url-search-params-state"
+          ],
+          "introduces": [
+            "structured-query-keys"
+          ],
+          "defers": [
+            "observable-query-lifecycle"
+          ]
         },
         {
           "id": "10-04",
@@ -623,7 +1443,22 @@
           "kind": "build",
           "outcome": "Показать все наблюдаемые состояния запроса без boolean-конфликтов.",
           "done": "MSW-сценарии подтверждают loading, empty, error, retry и success.",
-          "checks": ["integration", "a11y"]
+          "checks": [
+            "integration",
+            "a11y"
+          ],
+          "requires": [
+            "structured-query-keys",
+            "discriminated-ui-state",
+            "conditional-rendering-strategies",
+            "msw-api-scenario-contract"
+          ],
+          "introduces": [
+            "observable-query-lifecycle"
+          ],
+          "defers": [
+            "targeted-query-invalidation"
+          ]
         },
         {
           "id": "10-05",
@@ -632,7 +1467,20 @@
           "kind": "build",
           "outcome": "Обновлять серверные данные и инвалидировать только связанные queries.",
           "done": "Созданный инцидент появляется после успешной mutation без полного сброса cache.",
-          "checks": ["integration"]
+          "checks": [
+            "integration"
+          ],
+          "requires": [
+            "structured-query-keys",
+            "msw-api-scenario-contract",
+            "immutable-state-update"
+          ],
+          "introduces": [
+            "targeted-query-invalidation"
+          ],
+          "defers": [
+            "optimistic-update-rollback"
+          ]
         },
         {
           "id": "10-06",
@@ -641,7 +1489,20 @@
           "kind": "integrate",
           "outcome": "Безопасно применять optimistic change и восстанавливать snapshot при ошибке.",
           "done": "Success сохраняет изменение, 409 и 500 возвращают предыдущие данные и показывают ошибку.",
-          "checks": ["integration", "review"]
+          "checks": [
+            "integration",
+            "review"
+          ],
+          "requires": [
+            "targeted-query-invalidation",
+            "immutable-state-update",
+            "react-render-snapshot",
+            "discriminated-ui-state"
+          ],
+          "introduces": [
+            "optimistic-update-rollback"
+          ],
+          "defers": []
         }
       ]
     },
@@ -659,7 +1520,24 @@
           "kind": "compare",
           "outcome": "Выбирать local state, Context, URL, query cache или global store.",
           "done": "Архитектурное решение для dashboard аргументировано по пяти критериям.",
-          "checks": ["quiz", "review"]
+          "checks": [
+            "quiz",
+            "review"
+          ],
+          "requires": [
+            "state-lifetime-across-renders",
+            "react-context-dependency",
+            "url-search-params-state",
+            "server-state-ownership"
+          ],
+          "introduces": [
+            "client-state-placement"
+          ],
+          "defers": [
+            "context-reducer-baseline",
+            "zustand-selector-subscription",
+            "redux-toolkit-slice-workflow"
+          ]
         },
         {
           "id": "11-02",
@@ -668,7 +1546,22 @@
           "kind": "build",
           "outcome": "Оценить встроенный React-подход до подключения store-библиотеки.",
           "done": "Небольшой selection state работает через Context/reducer и имеет тест переходов.",
-          "checks": ["typecheck", "unit"]
+          "checks": [
+            "typecheck",
+            "unit"
+          ],
+          "requires": [
+            "client-state-placement",
+            "react-context-dependency",
+            "reducer-state-transitions",
+            "typed-hook-provider-api"
+          ],
+          "introduces": [
+            "context-reducer-baseline"
+          ],
+          "defers": [
+            "zustand-selector-subscription"
+          ]
         },
         {
           "id": "11-03",
@@ -677,7 +1570,21 @@
           "kind": "refactor",
           "outcome": "Перенести cross-page UI state в маленький store с узкими selectors.",
           "done": "Потребители не подписываются на весь store, поведение сохраняется.",
-          "checks": ["unit", "review"]
+          "checks": [
+            "unit",
+            "review"
+          ],
+          "requires": [
+            "client-state-placement",
+            "context-reducer-baseline",
+            "custom-hook-contract"
+          ],
+          "introduces": [
+            "zustand-selector-subscription"
+          ],
+          "defers": [
+            "versioned-state-persistence"
+          ]
         },
         {
           "id": "11-04",
@@ -686,7 +1593,18 @@
           "kind": "build",
           "outcome": "Сохранять только безопасные пользовательские настройки с versioned migration.",
           "done": "Настройки переживают reload, устаревшая версия корректно мигрирует.",
-          "checks": ["unit"]
+          "checks": [
+            "unit"
+          ],
+          "requires": [
+            "zustand-selector-subscription",
+            "browser-api-effect-synchronization",
+            "immutable-state-update"
+          ],
+          "introduces": [
+            "versioned-state-persistence"
+          ],
+          "defers": []
         },
         {
           "id": "11-05",
@@ -695,7 +1613,22 @@
           "kind": "build",
           "outcome": "Собрать строгий workflow с actions, slice и мемоизированными selectors.",
           "done": "Workflow draft/approve/reject покрыт reducer-тестами и DevTools-readable actions.",
-          "checks": ["typecheck", "unit"]
+          "checks": [
+            "typecheck",
+            "unit"
+          ],
+          "requires": [
+            "typescript",
+            "reducer-state-transitions",
+            "client-state-placement",
+            "discriminated-ui-state"
+          ],
+          "introduces": [
+            "redux-toolkit-slice-workflow"
+          ],
+          "defers": [
+            "normalized-store-adr"
+          ]
         },
         {
           "id": "11-06",
@@ -704,7 +1637,20 @@
           "kind": "compare",
           "outcome": "Сравнить Zustand и Redux Toolkit на одинаковом доменном сценарии.",
           "done": "Нормализованная коллекция работает, а ADR фиксирует выбранный store для capstone.",
-          "checks": ["unit", "review"]
+          "checks": [
+            "unit",
+            "review"
+          ],
+          "requires": [
+            "redux-toolkit-slice-workflow",
+            "react-key-identity",
+            "immutable-collection-update",
+            "client-state-placement"
+          ],
+          "introduces": [
+            "normalized-store-adr"
+          ],
+          "defers": []
         }
       ]
     },
@@ -722,7 +1668,21 @@
           "kind": "compare",
           "outcome": "Отличать app, pages, widgets, features, entities и shared по ответственности.",
           "done": "Двенадцать модулей разложены по слоям с объяснением предметного смысла.",
-          "checks": ["quiz", "review"]
+          "checks": [
+            "quiz",
+            "review"
+          ],
+          "requires": [
+            "component-contract-composition",
+            "client-state-placement",
+            "normalized-store-adr"
+          ],
+          "introduces": [
+            "fsd-layer-responsibility"
+          ],
+          "defers": [
+            "page-first-fsd-slicing"
+          ]
         },
         {
           "id": "12-02",
@@ -731,7 +1691,20 @@
           "kind": "review",
           "outcome": "Оставлять одноразовую логику на page до появления причины для извлечения.",
           "done": "Избыточная структура упрощена без потери поведения.",
-          "checks": ["fsd", "review"]
+          "checks": [
+            "fsd",
+            "review"
+          ],
+          "requires": [
+            "fsd-layer-responsibility",
+            "component-contract-composition"
+          ],
+          "introduces": [
+            "page-first-fsd-slicing"
+          ],
+          "defers": [
+            "fsd-slice-public-api"
+          ]
         },
         {
           "id": "12-03",
@@ -740,7 +1713,21 @@
           "kind": "refactor",
           "outcome": "Скрывать внутреннюю структуру slice за минимальным public API.",
           "done": "Внешние imports используют public API, внутренние детали не экспортируются.",
-          "checks": ["typecheck", "fsd"]
+          "checks": [
+            "typecheck",
+            "fsd"
+          ],
+          "requires": [
+            "fsd-layer-responsibility",
+            "page-first-fsd-slicing",
+            "typed-props-event-contract"
+          ],
+          "introduces": [
+            "fsd-slice-public-api"
+          ],
+          "defers": [
+            "fsd-dependency-direction"
+          ]
         },
         {
           "id": "12-04",
@@ -749,7 +1736,21 @@
           "kind": "debug",
           "outcome": "Исправлять upward и cross-slice imports без циклических обходов.",
           "done": "Steiger не находит forbidden imports, поведение сохранено.",
-          "checks": ["fsd", "unit"]
+          "checks": [
+            "fsd",
+            "unit"
+          ],
+          "requires": [
+            "fsd-layer-responsibility",
+            "fsd-slice-public-api",
+            "component-contract-composition"
+          ],
+          "introduces": [
+            "fsd-dependency-direction"
+          ],
+          "defers": [
+            "fsd-entity-feature-boundary"
+          ]
         },
         {
           "id": "12-05",
@@ -758,7 +1759,22 @@
           "kind": "refactor",
           "outcome": "Отличать предметное существительное от пользовательского действия.",
           "done": "Incident и acknowledge-incident разделены по ответственности и public API.",
-          "checks": ["fsd", "review"]
+          "checks": [
+            "fsd",
+            "review"
+          ],
+          "requires": [
+            "fsd-layer-responsibility",
+            "fsd-slice-public-api",
+            "fsd-dependency-direction",
+            "semantic-callback-contracts"
+          ],
+          "introduces": [
+            "fsd-entity-feature-boundary"
+          ],
+          "defers": [
+            "fsd-architecture-audit"
+          ]
         },
         {
           "id": "12-06",
@@ -767,7 +1783,22 @@
           "kind": "integrate",
           "outcome": "Провести небольшой FSD-аудит и исправить нарушения по причинам.",
           "done": "Steiger проходит, а report объясняет каждое перемещение и сознательно оставленные исключения.",
-          "checks": ["typecheck", "fsd", "review"]
+          "checks": [
+            "typecheck",
+            "fsd",
+            "review"
+          ],
+          "requires": [
+            "fsd-layer-responsibility",
+            "page-first-fsd-slicing",
+            "fsd-slice-public-api",
+            "fsd-dependency-direction",
+            "fsd-entity-feature-boundary"
+          ],
+          "introduces": [
+            "fsd-architecture-audit"
+          ],
+          "defers": []
         }
       ]
     },
@@ -785,7 +1816,23 @@
           "kind": "complete",
           "outcome": "Собирать стили без динамических class names, теряющихся при build.",
           "done": "StatusBadge имеет типизированные варианты и корректный production CSS.",
-          "checks": ["build", "unit"]
+          "checks": [
+            "build",
+            "unit"
+          ],
+          "requires": [
+            "html-css",
+            "node-package-manager",
+            "readonly-props-contract",
+            "discriminated-props-union"
+          ],
+          "introduces": [
+            "static-utility-class-composition"
+          ],
+          "defers": [
+            "owned-ui-primitive",
+            "storybook-state-catalog"
+          ]
         },
         {
           "id": "13-02",
@@ -794,7 +1841,24 @@
           "kind": "refactor",
           "outcome": "Адаптировать скопированный primitive через локальный API, сохранив accessibility.",
           "done": "Button variant добавлен без изменения потребителей и проходит keyboard test.",
-          "checks": ["unit", "a11y"]
+          "checks": [
+            "unit",
+            "a11y"
+          ],
+          "requires": [
+            "typescript",
+            "static-utility-class-composition",
+            "typed-props-event-contract",
+            "nullable-ref-event-safety",
+            "fsd-slice-public-api"
+          ],
+          "introduces": [
+            "owned-ui-primitive"
+          ],
+          "defers": [
+            "semantic-data-table-accessibility",
+            "storybook-interaction-accessibility"
+          ]
         },
         {
           "id": "13-03",
@@ -803,7 +1867,24 @@
           "kind": "build",
           "outcome": "Создать доступную data table с корректными headers и actions.",
           "done": "Таблица читается по ролям, сортировка доступна с клавиатуры.",
-          "checks": ["unit", "a11y"]
+          "checks": [
+            "unit",
+            "a11y"
+          ],
+          "requires": [
+            "html-css",
+            "generic-component-props",
+            "semantic-callback-contracts",
+            "native-form-semantics",
+            "owned-ui-primitive"
+          ],
+          "introduces": [
+            "semantic-data-table-accessibility"
+          ],
+          "defers": [
+            "storybook-interaction-accessibility",
+            "responsive-fsd-widget"
+          ]
         },
         {
           "id": "13-04",
@@ -812,7 +1893,22 @@
           "kind": "build",
           "outcome": "Описывать visual и data states компонента через Storybook stories.",
           "done": "Компонент имеет default, empty, loading, error и long-content stories.",
-          "checks": ["storybook"]
+          "checks": [
+            "storybook"
+          ],
+          "requires": [
+            "react-children-composition",
+            "discriminated-ui-state",
+            "observable-query-lifecycle",
+            "owned-ui-primitive"
+          ],
+          "introduces": [
+            "storybook-state-catalog"
+          ],
+          "defers": [
+            "storybook-interaction-accessibility",
+            "responsive-fsd-widget"
+          ]
         },
         {
           "id": "13-05",
@@ -821,7 +1917,22 @@
           "kind": "test",
           "outcome": "Проверять keyboard interaction и axe violations в изолированном UI.",
           "done": "Interaction test проходит, Storybook a11y не сообщает violations.",
-          "checks": ["storybook", "a11y"]
+          "checks": [
+            "storybook",
+            "a11y"
+          ],
+          "requires": [
+            "native-form-semantics",
+            "focus-management",
+            "semantic-data-table-accessibility",
+            "storybook-state-catalog"
+          ],
+          "introduces": [
+            "storybook-interaction-accessibility"
+          ],
+          "defers": [
+            "responsive-fsd-widget"
+          ]
         },
         {
           "id": "13-06",
@@ -830,7 +1941,24 @@
           "kind": "integrate",
           "outcome": "Собрать адаптивный widget из primitives без нарушения FSD ownership.",
           "done": "Widget работает на mobile/desktop viewports и проходит Storybook, a11y и FSD checks.",
-          "checks": ["storybook", "a11y", "fsd", "review"]
+          "checks": [
+            "storybook",
+            "a11y",
+            "fsd",
+            "review"
+          ],
+          "requires": [
+            "static-utility-class-composition",
+            "owned-ui-primitive",
+            "storybook-state-catalog",
+            "storybook-interaction-accessibility",
+            "fsd-layer-responsibility",
+            "fsd-dependency-direction"
+          ],
+          "introduces": [
+            "responsive-fsd-widget"
+          ],
+          "defers": []
         }
       ]
     },
@@ -848,7 +1976,22 @@
           "kind": "test",
           "outcome": "Выносить действительно чистую логику и тестировать её без React.",
           "done": "Функция фильтрации покрыта boundary cases без рендера компонента.",
-          "checks": ["unit"]
+          "checks": [
+            "unit"
+          ],
+          "requires": [
+            "typescript",
+            "render-time-derived-data",
+            "typed-action-model",
+            "schema-derived-form-contract"
+          ],
+          "introduces": [
+            "pure-logic-test-boundary"
+          ],
+          "defers": [
+            "testing-library-user-contract",
+            "test-level-strategy"
+          ]
         },
         {
           "id": "14-02",
@@ -857,7 +2000,23 @@
           "kind": "test",
           "outcome": "Находить элементы по роли и имени и совершать реальные действия пользователя.",
           "done": "Тест формы не обращается к component internals или CSS selectors.",
-          "checks": ["unit", "review"]
+          "checks": [
+            "unit",
+            "review"
+          ],
+          "requires": [
+            "semantic-callback-contracts",
+            "controlled-input-contract",
+            "native-form-semantics",
+            "accessible-field-errors"
+          ],
+          "introduces": [
+            "testing-library-user-contract"
+          ],
+          "defers": [
+            "msw-integration-testing",
+            "behavior-contract-testing"
+          ]
         },
         {
           "id": "14-03",
@@ -866,7 +2025,22 @@
           "kind": "test",
           "outcome": "Контролировать сетевой сценарий без mock конкретного query hook.",
           "done": "Success и error tests используют MSW handlers и наблюдаемый UI.",
-          "checks": ["integration"]
+          "checks": [
+            "integration"
+          ],
+          "requires": [
+            "msw-api-scenario-contract",
+            "structured-query-keys",
+            "observable-query-lifecycle",
+            "testing-library-user-contract"
+          ],
+          "introduces": [
+            "msw-integration-testing"
+          ],
+          "defers": [
+            "playwright-critical-user-flow",
+            "test-level-strategy"
+          ]
         },
         {
           "id": "14-04",
@@ -875,7 +2049,20 @@
           "kind": "refactor",
           "outcome": "Заменять хрупкие assertions на поведенческий контракт.",
           "done": "Рефакторинг внутренней структуры компонента не ломает тест.",
-          "checks": ["unit", "review"]
+          "checks": [
+            "unit",
+            "review"
+          ],
+          "requires": [
+            "pure-logic-test-boundary",
+            "testing-library-user-contract"
+          ],
+          "introduces": [
+            "behavior-contract-testing"
+          ],
+          "defers": [
+            "test-level-strategy"
+          ]
         },
         {
           "id": "14-05",
@@ -884,7 +2071,21 @@
           "kind": "test",
           "outcome": "Покрыть один пользовательский маршрут через browser-level assertions.",
           "done": "Сценарий login-to-detail изолирован, повторяем и использует user-facing locators.",
-          "checks": ["e2e"]
+          "checks": [
+            "e2e"
+          ],
+          "requires": [
+            "client-route-tree",
+            "protected-route-return-url",
+            "msw-integration-testing",
+            "testing-library-user-contract"
+          ],
+          "introduces": [
+            "playwright-critical-user-flow"
+          ],
+          "defers": [
+            "test-level-strategy"
+          ]
         },
         {
           "id": "14-06",
@@ -893,7 +2094,23 @@
           "kind": "review",
           "outcome": "Распределять проверки между unit, integration, Storybook и E2E.",
           "done": "Для feature составлен и реализован минимальный test plan без дублирующих сценариев.",
-          "checks": ["unit", "integration", "e2e", "review"]
+          "checks": [
+            "unit",
+            "integration",
+            "e2e",
+            "review"
+          ],
+          "requires": [
+            "pure-logic-test-boundary",
+            "behavior-contract-testing",
+            "msw-integration-testing",
+            "storybook-interaction-accessibility",
+            "playwright-critical-user-flow"
+          ],
+          "introduces": [
+            "test-level-strategy"
+          ],
+          "defers": []
         }
       ]
     },
@@ -911,7 +2128,22 @@
           "kind": "observe",
           "outcome": "Использовать profiler для поиска реальной причины лишней работы.",
           "done": "Зафиксирован воспроизводимый render trace и названа конкретная причина.",
-          "checks": ["review"]
+          "checks": [
+            "review"
+          ],
+          "requires": [
+            "react-render-snapshot",
+            "context-update-boundaries",
+            "context-value-stability",
+            "behavior-contract-testing"
+          ],
+          "introduces": [
+            "react-render-profiling"
+          ],
+          "defers": [
+            "evidence-based-react-memoization",
+            "resilient-data-screen"
+          ]
         },
         {
           "id": "15-02",
@@ -920,7 +2152,22 @@
           "kind": "refactor",
           "outcome": "Применять memo/useMemo/useCallback только для измеренного bottleneck.",
           "done": "Оптимизация сокращает измеренную работу и не усложняет остальные компоненты.",
-          "checks": ["unit", "review"]
+          "checks": [
+            "unit",
+            "review"
+          ],
+          "requires": [
+            "readonly-props-contract",
+            "context-value-stability",
+            "react-render-profiling"
+          ],
+          "introduces": [
+            "evidence-based-react-memoization"
+          ],
+          "defers": [
+            "non-urgent-ui-transition",
+            "resilient-data-screen"
+          ]
         },
         {
           "id": "15-03",
@@ -929,7 +2176,22 @@
           "kind": "complete",
           "outcome": "Разделять срочное обновление input и тяжёлое обновление результатов.",
           "done": "Ввод остаётся отзывчивым, pending state доступен пользователю.",
-          "checks": ["integration"]
+          "checks": [
+            "integration"
+          ],
+          "requires": [
+            "react-render-snapshot",
+            "react-state-update-signal",
+            "render-time-derived-data",
+            "observable-query-lifecycle",
+            "react-render-profiling"
+          ],
+          "introduces": [
+            "non-urgent-ui-transition"
+          ],
+          "defers": [
+            "resilient-data-screen"
+          ]
         },
         {
           "id": "15-04",
@@ -938,7 +2200,22 @@
           "kind": "build",
           "outcome": "Размещать loading boundary вокруг лениво загружаемой части UI.",
           "done": "Chunk загружается отдельно, fallback локален и layout не прыгает.",
-          "checks": ["build", "integration"]
+          "checks": [
+            "build",
+            "integration"
+          ],
+          "requires": [
+            "react-children-composition",
+            "lazy-route-error-boundary",
+            "responsive-fsd-widget"
+          ],
+          "introduces": [
+            "local-suspense-loading-boundary"
+          ],
+          "defers": [
+            "recoverable-error-boundary",
+            "resilient-data-screen"
+          ]
         },
         {
           "id": "15-05",
@@ -947,7 +2224,23 @@
           "kind": "build",
           "outcome": "Локализовать render error и дать пользователю безопасный recovery action.",
           "done": "Ошибка widget не разрушает страницу, retry восстанавливает содержимое.",
-          "checks": ["integration", "a11y"]
+          "checks": [
+            "integration",
+            "a11y"
+          ],
+          "requires": [
+            "focus-management",
+            "lazy-route-error-boundary",
+            "local-suspense-loading-boundary",
+            "testing-library-user-contract"
+          ],
+          "introduces": [
+            "recoverable-error-boundary"
+          ],
+          "defers": [
+            "resilient-data-screen",
+            "production-error-observability"
+          ]
         },
         {
           "id": "15-06",
@@ -956,7 +2249,24 @@
           "kind": "integrate",
           "outcome": "Соединить transition, lazy loading, query states и error isolation.",
           "done": "Экран проходит performance rubric и сценарии slow-load/render-failure/retry.",
-          "checks": ["integration", "build", "review"]
+          "checks": [
+            "integration",
+            "build",
+            "review"
+          ],
+          "requires": [
+            "observable-query-lifecycle",
+            "non-urgent-ui-transition",
+            "local-suspense-loading-boundary",
+            "recoverable-error-boundary",
+            "react-render-profiling"
+          ],
+          "introduces": [
+            "resilient-data-screen"
+          ],
+          "defers": [
+            "production-error-observability"
+          ]
         }
       ]
     },
@@ -974,7 +2284,20 @@
           "kind": "build",
           "outcome": "Моделировать session и разрешения как capabilities, а не рассыпанные role checks.",
           "done": "Viewer, operator и admin видят только разрешённые действия.",
-          "checks": ["typecheck", "integration"]
+          "checks": [
+            "typecheck",
+            "integration"
+          ],
+          "requires": [
+            "discriminated-props-union",
+            "protected-route-return-url",
+            "client-state-placement",
+            "fsd-entity-feature-boundary"
+          ],
+          "introduces": [
+            "capability-based-authorization"
+          ],
+          "defers": []
         },
         {
           "id": "16-02",
@@ -983,7 +2306,19 @@
           "kind": "integrate",
           "outcome": "Вынести пользовательские строки и определить fallback для отсутствующего перевода.",
           "done": "Два языка переключаются без reload, missing key имеет предсказуемый fallback.",
-          "checks": ["integration"]
+          "checks": [
+            "integration"
+          ],
+          "requires": [
+            "react-context-dependency",
+            "typed-context-provider",
+            "typed-hook-provider-api",
+            "responsive-fsd-widget"
+          ],
+          "introduces": [
+            "resilient-i18n-fallback"
+          ],
+          "defers": []
         },
         {
           "id": "16-03",
@@ -992,7 +2327,23 @@
           "kind": "build",
           "outcome": "Валидировать публичную конфигурацию на старте и не смешивать её с секретами.",
           "done": "Некорректный env останавливает build или показывает диагностируемую ошибку.",
-          "checks": ["typecheck", "build"]
+          "checks": [
+            "typecheck",
+            "build"
+          ],
+          "requires": [
+            "typescript",
+            "web-development",
+            "node-package-manager",
+            "schema-derived-form-contract"
+          ],
+          "introduces": [
+            "validated-public-runtime-config"
+          ],
+          "defers": [
+            "containerized-spa-delivery",
+            "production-error-observability"
+          ]
         },
         {
           "id": "16-04",
@@ -1001,7 +2352,23 @@
           "kind": "ship",
           "outcome": "Собрать multi-stage production image и обслуживать deep links.",
           "done": "Container healthcheck проходит, прямой переход на вложенный route возвращает SPA.",
-          "checks": ["build", "docker"]
+          "checks": [
+            "build",
+            "docker"
+          ],
+          "requires": [
+            "web-development",
+            "client-route-tree",
+            "nested-route-layout",
+            "lazy-route-error-boundary",
+            "validated-public-runtime-config"
+          ],
+          "introduces": [
+            "containerized-spa-delivery"
+          ],
+          "defers": [
+            "ci-preview-quality-gate"
+          ]
         },
         {
           "id": "16-05",
@@ -1010,7 +2377,23 @@
           "kind": "ship",
           "outcome": "Связать quality gate с preview deployment без дублирования команд.",
           "done": "Workflow использует root scripts, а preview deploy зависит от зелёных проверок.",
-          "checks": ["ci", "deploy", "review"]
+          "checks": [
+            "ci",
+            "deploy",
+            "review"
+          ],
+          "requires": [
+            "git",
+            "node-package-manager",
+            "test-level-strategy",
+            "containerized-spa-delivery"
+          ],
+          "introduces": [
+            "ci-preview-quality-gate"
+          ],
+          "defers": [
+            "production-error-observability"
+          ]
         },
         {
           "id": "16-06",
@@ -1019,7 +2402,20 @@
           "kind": "integrate",
           "outcome": "Отправлять диагностический context и связывать production stack trace с исходниками.",
           "done": "Без DSN приложение работает, с test DSN ошибка содержит release/context и корректный stack trace.",
-          "checks": ["observability", "build", "review"]
+          "checks": [
+            "observability",
+            "build",
+            "review"
+          ],
+          "requires": [
+            "recoverable-error-boundary",
+            "validated-public-runtime-config",
+            "ci-preview-quality-gate"
+          ],
+          "introduces": [
+            "production-error-observability"
+          ],
+          "defers": []
         }
       ]
     },
@@ -1037,7 +2433,24 @@
           "kind": "compare",
           "outcome": "Различать место выполнения, HTML delivery и интерактивность четырёх моделей.",
           "done": "Для шести требований выбран подход и объяснены его trade-offs.",
-          "checks": ["quiz", "review"]
+          "checks": [
+            "quiz",
+            "review"
+          ],
+          "requires": [
+            "web-development",
+            "function-component-model",
+            "client-route-tree",
+            "server-state-ownership",
+            "local-suspense-loading-boundary"
+          ],
+          "introduces": [
+            "react-rendering-runtime-models"
+          ],
+          "defers": [
+            "nextjs-app-router-routing",
+            "server-client-component-boundary"
+          ]
         },
         {
           "id": "17-02",
@@ -1046,7 +2459,23 @@
           "kind": "build",
           "outcome": "Создать статическую и динамическую страницу через filesystem routing.",
           "done": "Оба route корректно собираются, неизвестный id показывает not-found.",
-          "checks": ["typecheck", "build"]
+          "checks": [
+            "typecheck",
+            "build"
+          ],
+          "requires": [
+            "typescript",
+            "nested-route-layout",
+            "validated-route-params",
+            "react-rendering-runtime-models"
+          ],
+          "introduces": [
+            "nextjs-app-router-routing"
+          ],
+          "defers": [
+            "server-client-component-boundary",
+            "nextjs-route-loading-error-recovery"
+          ]
         },
         {
           "id": "17-03",
@@ -1055,7 +2484,22 @@
           "kind": "refactor",
           "outcome": "Разместить client boundary минимально вокруг интерактивной части.",
           "done": "Server page получает данные, интерактивный фильтр изолирован в Client Component.",
-          "checks": ["build", "review"]
+          "checks": [
+            "build",
+            "review"
+          ],
+          "requires": [
+            "react-children-composition",
+            "server-state-ownership",
+            "nextjs-app-router-routing"
+          ],
+          "introduces": [
+            "server-client-component-boundary"
+          ],
+          "defers": [
+            "nextjs-route-loading-error-recovery",
+            "server-side-mutation-boundary"
+          ]
         },
         {
           "id": "17-04",
@@ -1064,7 +2508,21 @@
           "kind": "build",
           "outcome": "Локализовать streaming fallback и route-level error recovery.",
           "done": "Slow и failure сценарии показывают локальные loading/error states.",
-          "checks": ["integration"]
+          "checks": [
+            "integration"
+          ],
+          "requires": [
+            "nextjs-app-router-routing",
+            "server-client-component-boundary",
+            "local-suspense-loading-boundary",
+            "recoverable-error-boundary"
+          ],
+          "introduces": [
+            "nextjs-route-loading-error-recovery"
+          ],
+          "defers": [
+            "server-side-mutation-boundary"
+          ]
         },
         {
           "id": "17-05",
@@ -1073,7 +2531,23 @@
           "kind": "complete",
           "outcome": "Сравнить server-side mutation с SPA mutation через query client.",
           "done": "Форма изменяет данные, валидирует input и показывает server error.",
-          "checks": ["typecheck", "integration", "review"]
+          "checks": [
+            "typecheck",
+            "integration",
+            "review"
+          ],
+          "requires": [
+            "schema-derived-form-contract",
+            "form-submit-error-taxonomy",
+            "targeted-query-invalidation",
+            "server-client-component-boundary"
+          ],
+          "introduces": [
+            "server-side-mutation-boundary"
+          ],
+          "defers": [
+            "framework-selection-adr"
+          ]
         },
         {
           "id": "17-06",
@@ -1082,7 +2556,21 @@
           "kind": "review",
           "outcome": "Принимать framework decision по требованиям, а не популярности.",
           "done": "ADR сравнивает routing, data flow, deployment, observability и team cost.",
-          "checks": ["review"]
+          "checks": [
+            "review"
+          ],
+          "requires": [
+            "react-rendering-runtime-models",
+            "nextjs-app-router-routing",
+            "server-client-component-boundary",
+            "server-side-mutation-boundary",
+            "containerized-spa-delivery",
+            "production-error-observability"
+          ],
+          "introduces": [
+            "framework-selection-adr"
+          ],
+          "defers": []
         }
       ]
     }
@@ -1100,7 +2588,23 @@
         "kind": "review",
         "outcome": "Зафиксировать Asset, Incident, WorkOrder, роли и пользовательские маршруты.",
         "done": "Domain map и acceptance criteria не содержат нерешённых продуктовых развилок.",
-        "checks": ["review"]
+        "checks": [
+          "review"
+        ],
+        "requires": [
+          "typescript",
+          "web-development",
+          "fsd-layer-responsibility",
+          "fsd-entity-feature-boundary",
+          "test-level-strategy"
+        ],
+        "introduces": [
+          "operations-domain-acceptance-map"
+        ],
+        "defers": [
+          "operations-application-foundation",
+          "capability-secured-operations-shell"
+        ]
       },
       {
         "id": "CP-02",
@@ -1109,7 +2613,23 @@
         "kind": "build",
         "outcome": "Создать минимальный Vite SPA shell и композицию providers.",
         "done": "Приложение запускается, shell доступен, typecheck и smoke test зелёные.",
-        "checks": ["typecheck", "integration"]
+        "checks": [
+          "typecheck",
+          "integration"
+        ],
+        "requires": [
+          "operations-domain-acceptance-map",
+          "typed-context-provider",
+          "structured-query-keys",
+          "fsd-layer-responsibility",
+          "validated-public-runtime-config"
+        ],
+        "introduces": [
+          "operations-application-foundation"
+        ],
+        "defers": [
+          "capability-secured-operations-shell"
+        ]
       },
       {
         "id": "CP-03",
@@ -1118,7 +2638,19 @@
         "kind": "build",
         "outcome": "Настроить public и protected route groups с вложенными layouts.",
         "done": "Все страницы доступны по стабильным URL, not-found локализован.",
-        "checks": ["integration"]
+        "checks": [
+          "integration"
+        ],
+        "requires": [
+          "operations-application-foundation",
+          "client-route-tree",
+          "nested-route-layout",
+          "protected-route-return-url"
+        ],
+        "introduces": [],
+        "defers": [
+          "capability-secured-operations-shell"
+        ]
       },
       {
         "id": "CP-04",
@@ -1127,7 +2659,20 @@
         "kind": "build",
         "outcome": "Реализовать детерминированный login API с success и error cases.",
         "done": "Login form обрабатывает valid, invalid и network failure сценарии.",
-        "checks": ["integration"]
+        "checks": [
+          "integration"
+        ],
+        "requires": [
+          "operations-application-foundation",
+          "msw-api-scenario-contract",
+          "react-hook-form-registration",
+          "form-submit-error-taxonomy",
+          "msw-integration-testing"
+        ],
+        "introduces": [],
+        "defers": [
+          "capability-secured-operations-shell"
+        ]
       },
       {
         "id": "CP-05",
@@ -1136,7 +2681,19 @@
         "kind": "integrate",
         "outcome": "Восстанавливать mock session и возвращать пользователя на исходный route.",
         "done": "Reload сохраняет session, logout закрывает protected pages.",
-        "checks": ["integration"]
+        "checks": [
+          "integration"
+        ],
+        "requires": [
+          "operations-application-foundation",
+          "protected-route-return-url",
+          "versioned-state-persistence",
+          "capability-based-authorization"
+        ],
+        "introduces": [],
+        "defers": [
+          "capability-secured-operations-shell"
+        ]
       },
       {
         "id": "CP-06",
@@ -1145,7 +2702,22 @@
         "kind": "build",
         "outcome": "Централизовать viewer/operator/admin permissions.",
         "done": "UI и route actions используют единый capability contract.",
-        "checks": ["typecheck", "integration"]
+        "checks": [
+          "typecheck",
+          "integration"
+        ],
+        "requires": [
+          "operations-application-foundation",
+          "capability-based-authorization",
+          "discriminated-props-union",
+          "fsd-entity-feature-boundary"
+        ],
+        "introduces": [
+          "capability-secured-operations-shell"
+        ],
+        "defers": [
+          "asset-discovery-vertical-slice"
+        ]
       },
       {
         "id": "CP-07",
@@ -1154,7 +2726,20 @@
         "kind": "build",
         "outcome": "Создать типизированный MSW resource с фильтрами и pagination.",
         "done": "Handler возвращает стабильные DTO и проверенные boundary cases.",
-        "checks": ["typecheck", "integration"]
+        "checks": [
+          "typecheck",
+          "integration"
+        ],
+        "requires": [
+          "operations-domain-acceptance-map",
+          "msw-api-scenario-contract",
+          "validated-route-params",
+          "structured-query-keys"
+        ],
+        "introduces": [],
+        "defers": [
+          "asset-discovery-vertical-slice"
+        ]
       },
       {
         "id": "CP-08",
@@ -1163,7 +2748,21 @@
         "kind": "build",
         "outcome": "Подключить TanStack Query и отобразить все состояния ресурса.",
         "done": "Loading, empty, error, retry и success проверены через MSW.",
-        "checks": ["integration", "a11y"]
+        "checks": [
+          "integration",
+          "a11y"
+        ],
+        "requires": [
+          "operations-application-foundation",
+          "server-state-ownership",
+          "structured-query-keys",
+          "observable-query-lifecycle",
+          "msw-integration-testing"
+        ],
+        "introduces": [],
+        "defers": [
+          "asset-discovery-vertical-slice"
+        ]
       },
       {
         "id": "CP-09",
@@ -1172,7 +2771,20 @@
         "kind": "build",
         "outcome": "Собрать доступную таблицу на Tailwind и shadcn/ui.",
         "done": "Таблица поддерживает keyboard sorting и role-aware actions.",
-        "checks": ["integration", "a11y"]
+        "checks": [
+          "integration",
+          "a11y"
+        ],
+        "requires": [
+          "capability-secured-operations-shell",
+          "static-utility-class-composition",
+          "owned-ui-primitive",
+          "semantic-data-table-accessibility"
+        ],
+        "introduces": [],
+        "defers": [
+          "asset-discovery-vertical-slice"
+        ]
       },
       {
         "id": "CP-10",
@@ -1181,7 +2793,18 @@
         "kind": "integrate",
         "outcome": "Синхронизировать query params, API query keys и UI controls.",
         "done": "Ссылка воспроизводит фильтры, back/forward не рассинхронизируют UI.",
-        "checks": ["integration"]
+        "checks": [
+          "integration"
+        ],
+        "requires": [
+          "url-search-params-state",
+          "structured-query-keys",
+          "semantic-data-table-accessibility"
+        ],
+        "introduces": [],
+        "defers": [
+          "asset-discovery-vertical-slice"
+        ]
       },
       {
         "id": "CP-11",
@@ -1190,7 +2813,21 @@
         "kind": "build",
         "outcome": "Создать detail route с not-found и related incidents.",
         "done": "Valid, missing и error cases имеют завершённый UI.",
-        "checks": ["integration"]
+        "checks": [
+          "integration"
+        ],
+        "requires": [
+          "capability-secured-operations-shell",
+          "nested-route-layout",
+          "validated-route-params",
+          "observable-query-lifecycle"
+        ],
+        "introduces": [
+          "asset-discovery-vertical-slice"
+        ],
+        "defers": [
+          "incident-lifecycle-vertical-slice"
+        ]
       },
       {
         "id": "CP-12",
@@ -1199,7 +2836,22 @@
         "kind": "build",
         "outcome": "Описать incident input через Zod и React Hook Form.",
         "done": "Conditional fields, field errors и focus behavior проходят тесты.",
-        "checks": ["typecheck", "integration", "a11y"]
+        "checks": [
+          "typecheck",
+          "integration",
+          "a11y"
+        ],
+        "requires": [
+          "operations-domain-acceptance-map",
+          "integrated-incident-form",
+          "schema-derived-form-contract",
+          "accessible-field-errors",
+          "focus-management"
+        ],
+        "introduces": [],
+        "defers": [
+          "incident-lifecycle-vertical-slice"
+        ]
       },
       {
         "id": "CP-13",
@@ -1208,7 +2860,19 @@
         "kind": "integrate",
         "outcome": "Связать форму с mutation и точной invalidation.",
         "done": "Success закрывает форму и обновляет список, errors сохраняют введённые данные.",
-        "checks": ["integration"]
+        "checks": [
+          "integration"
+        ],
+        "requires": [
+          "asset-discovery-vertical-slice",
+          "form-submit-error-taxonomy",
+          "targeted-query-invalidation",
+          "msw-integration-testing"
+        ],
+        "introduces": [],
+        "defers": [
+          "incident-lifecycle-vertical-slice"
+        ]
       },
       {
         "id": "CP-14",
@@ -1217,7 +2881,22 @@
         "kind": "integrate",
         "outcome": "Оптимистично подтверждать инцидент с rollback при конфликте.",
         "done": "409 и 500 восстанавливают cache и дают понятный recovery action.",
-        "checks": ["integration", "review"]
+        "checks": [
+          "integration",
+          "review"
+        ],
+        "requires": [
+          "capability-secured-operations-shell",
+          "targeted-query-invalidation",
+          "optimistic-update-rollback",
+          "form-submit-error-taxonomy"
+        ],
+        "introduces": [
+          "incident-lifecycle-vertical-slice"
+        ],
+        "defers": [
+          "operations-architecture-conformance"
+        ]
       },
       {
         "id": "CP-15",
@@ -1226,7 +2905,20 @@
         "kind": "build",
         "outcome": "Хранить плотность таблицы и layout preferences отдельно от server state.",
         "done": "Preferences persist и мигрируют, query data не попадает в store.",
-        "checks": ["unit", "review"]
+        "checks": [
+          "unit",
+          "review"
+        ],
+        "requires": [
+          "server-state-ownership",
+          "client-state-placement",
+          "zustand-selector-subscription",
+          "versioned-state-persistence"
+        ],
+        "introduces": [],
+        "defers": [
+          "operations-architecture-conformance"
+        ]
       },
       {
         "id": "CP-16",
@@ -1235,7 +2927,24 @@
         "kind": "refactor",
         "outcome": "Довести app/pages/widgets/features/entities/shared до проверяемых границ.",
         "done": "Steiger проходит, ADR объясняет нетривиальные placements.",
-        "checks": ["typecheck", "fsd", "review"]
+        "checks": [
+          "typecheck",
+          "fsd",
+          "review"
+        ],
+        "requires": [
+          "asset-discovery-vertical-slice",
+          "incident-lifecycle-vertical-slice",
+          "fsd-slice-public-api",
+          "fsd-dependency-direction",
+          "fsd-architecture-audit"
+        ],
+        "introduces": [
+          "operations-architecture-conformance"
+        ],
+        "defers": [
+          "operations-regression-safety-net"
+        ]
       },
       {
         "id": "CP-17",
@@ -1244,7 +2953,20 @@
         "kind": "test",
         "outcome": "Зафиксировать ключевые UI states и автоматические a11y checks.",
         "done": "Stories покрывают основные состояния, a11y violations отсутствуют.",
-        "checks": ["storybook", "a11y"]
+        "checks": [
+          "storybook",
+          "a11y"
+        ],
+        "requires": [
+          "operations-architecture-conformance",
+          "storybook-state-catalog",
+          "storybook-interaction-accessibility",
+          "responsive-fsd-widget"
+        ],
+        "introduces": [],
+        "defers": [
+          "operations-regression-safety-net"
+        ]
       },
       {
         "id": "CP-18",
@@ -1253,7 +2975,22 @@
         "kind": "test",
         "outcome": "Закрыть критичную бизнес-логику минимальным набором устойчивых тестов.",
         "done": "Test matrix реализована без проверки implementation details.",
-        "checks": ["unit", "integration", "review"]
+        "checks": [
+          "unit",
+          "integration",
+          "review"
+        ],
+        "requires": [
+          "operations-architecture-conformance",
+          "pure-logic-test-boundary",
+          "behavior-contract-testing",
+          "msw-integration-testing",
+          "test-level-strategy"
+        ],
+        "introduces": [],
+        "defers": [
+          "operations-regression-safety-net"
+        ]
       },
       {
         "id": "CP-19",
@@ -1262,7 +2999,21 @@
         "kind": "test",
         "outcome": "Проверить login, навигацию и role restriction в браузере.",
         "done": "Изолированные viewer/operator сценарии стабильно проходят.",
-        "checks": ["e2e"]
+        "checks": [
+          "e2e"
+        ],
+        "requires": [
+          "capability-secured-operations-shell",
+          "asset-discovery-vertical-slice",
+          "incident-lifecycle-vertical-slice",
+          "playwright-critical-user-flow"
+        ],
+        "introduces": [
+          "operations-regression-safety-net"
+        ],
+        "defers": [
+          "localized-observable-runtime"
+        ]
       },
       {
         "id": "CP-20",
@@ -1271,7 +3022,20 @@
         "kind": "integrate",
         "outcome": "Добавить второй язык и проверить длинные строки и fallback.",
         "done": "Переключение языка не ломает layout, missing translations диагностируются.",
-        "checks": ["integration", "storybook"]
+        "checks": [
+          "integration",
+          "storybook"
+        ],
+        "requires": [
+          "operations-regression-safety-net",
+          "resilient-i18n-fallback",
+          "storybook-state-catalog",
+          "responsive-fsd-widget"
+        ],
+        "introduces": [],
+        "defers": [
+          "localized-observable-runtime"
+        ]
       },
       {
         "id": "CP-21",
@@ -1280,7 +3044,22 @@
         "kind": "integrate",
         "outcome": "Локализовать runtime error и приложить безопасный diagnostic context.",
         "done": "Приложение работает без DSN, test event содержит release и route context.",
-        "checks": ["integration", "observability"]
+        "checks": [
+          "integration",
+          "observability"
+        ],
+        "requires": [
+          "operations-regression-safety-net",
+          "resilient-i18n-fallback",
+          "recoverable-error-boundary",
+          "production-error-observability"
+        ],
+        "introduces": [
+          "localized-observable-runtime"
+        ],
+        "defers": [
+          "dual-target-delivery-pipeline"
+        ]
       },
       {
         "id": "CP-22",
@@ -1289,7 +3068,19 @@
         "kind": "ship",
         "outcome": "Собрать self-hosted production artifact.",
         "done": "Image запускается через Compose, healthcheck и deep-link smoke проходят.",
-        "checks": ["build", "docker"]
+        "checks": [
+          "build",
+          "docker"
+        ],
+        "requires": [
+          "localized-observable-runtime",
+          "validated-public-runtime-config",
+          "containerized-spa-delivery"
+        ],
+        "introduces": [],
+        "defers": [
+          "dual-target-delivery-pipeline"
+        ]
       },
       {
         "id": "CP-23",
@@ -1298,7 +3089,22 @@
         "kind": "ship",
         "outcome": "Автоматизировать quality gate и managed deployment.",
         "done": "Workflow выполняет все checks, preview и production routes отвечают корректно.",
-        "checks": ["ci", "deploy"]
+        "checks": [
+          "ci",
+          "deploy"
+        ],
+        "requires": [
+          "operations-regression-safety-net",
+          "localized-observable-runtime",
+          "containerized-spa-delivery",
+          "ci-preview-quality-gate"
+        ],
+        "introduces": [
+          "dual-target-delivery-pipeline"
+        ],
+        "defers": [
+          "operations-production-readiness-evidence"
+        ]
       },
       {
         "id": "CP-24",
@@ -1307,8 +3113,43 @@
         "kind": "review",
         "outcome": "Проверить продукт, архитектуру, тесты, delivery и observability как единое целое.",
         "done": "Все acceptance criteria имеют доказательства, блокирующих замечаний Codex нет.",
-        "checks": ["typecheck", "lint", "unit", "integration", "fsd", "storybook", "a11y", "e2e", "build", "review"]
+        "checks": [
+          "typecheck",
+          "lint",
+          "unit",
+          "integration",
+          "fsd",
+          "storybook",
+          "a11y",
+          "e2e",
+          "build",
+          "review"
+        ],
+        "requires": [
+          "operations-domain-acceptance-map",
+          "capability-secured-operations-shell",
+          "asset-discovery-vertical-slice",
+          "incident-lifecycle-vertical-slice",
+          "operations-architecture-conformance",
+          "operations-regression-safety-net",
+          "localized-observable-runtime",
+          "dual-target-delivery-pipeline"
+        ],
+        "introduces": [
+          "operations-production-readiness-evidence"
+        ],
+        "defers": []
       }
     ]
-  }
+  },
+  "assumedConcepts": [
+    "javascript",
+    "typescript",
+    "vue-3",
+    "composition-api",
+    "html-css",
+    "web-development",
+    "git",
+    "node-package-manager"
+  ]
 }

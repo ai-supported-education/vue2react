@@ -1,4 +1,4 @@
-# 01-02. Изменение state как сигнал
+# 01-02. State как память компонента
 
 Ожидаемое время: 35–45 минут.
 
@@ -8,7 +8,7 @@
 
 - почему module-level переменная не является состоянием компонента;
 - что возвращает useState;
-- почему setter приводит к новому render;
+- как setter запрашивает следующий render snapshot;
 - почему обработчик передаётся в JSX, а не вызывается во время render.
 
 ## Starter и наблюдаемая ошибка
@@ -50,7 +50,8 @@ export default function Counter() {
 Переменная за пределами компонента:
 
 - общая для всех экземпляров Counter;
-- не сбрасывается при unmount нового экземпляра ожидаемым способом;
+- остаётся в загруженном module после unmount одного Counter и поэтому может
+  неожиданно попасть в новый instance после remount;
 - не сообщает React об изменениях;
 - усложняет server rendering и изоляцию тестов.
 
@@ -85,7 +86,9 @@ function Greeting() {
 }
 ~~~
 
-Первый render получает name Ada. После click setter ставит Grace в очередь, React снова вызывает Greeting, а следующий render получает name Grace.
+Первый render получает name Ada. После click setter запрашивает Grace. Так как новое
+значение отличается от Ada, React снова вызывает Greeting, а следующий render
+получает name Grace.
 
 ## Почему нельзя присвоить value напрямую
 
@@ -185,12 +188,14 @@ React не отслеживает чтение count внутри JSX. Setter с
 
     pnpm session:check
 
-Для этой карточки check выполняет:
+Для этой карточки `pnpm session:check` автоматически выполняет только:
 
 1. TypeScript typecheck.
 2. Vitest + Testing Library: два последовательных clicks должны показать Count: 1 и Count: 2.
 
-Агент в этой сессии не нужен: архитектурная развилка слишком мала, поэтому в manifest нет review.
+После зелёного check отдельно попросите Codex проверить, что state принадлежит компоненту,
+handler передан как функция, а прямой DOM update и module-level mutable state не используются.
+Shell-команда `pnpm session:review` только собирает пакет и сама агента не запускает.
 
 Если нужен следующий уровень помощи:
 
@@ -202,6 +207,7 @@ React не отслеживает чтение count внутри JSX. Setter с
 - после второго — Count: 2;
 - нет module-level mutable state;
 - typecheck и unit test зелёные.
+- Codex-review записан как PASS.
 
 После этого:
 

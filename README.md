@@ -69,6 +69,20 @@ best practices, затем запишет `PASS` или `NEEDS_WORK`. Сама s
 
 Прогресс хранится в игнорируемой Git папке .training. Runner не создаёт commits, не переключает branches и не применяет решение автоматически.
 
+## Проверка учебного материала
+
+При разработке курса learner-facing карточка проходит отдельный pedagogical review:
+
+    pnpm author:content-review session 01-01
+    pnpm author:content-review module 01
+
+Команда только собирает два изолированных packet и content hash. Родительский Codex
+передаёт их новому subagent без истории генерации: сначала blind learner-pass,
+затем проверка связности с rubric, tests и соседними карточками. Verdict сохраняется
+отдельно в `.authoring/`; изменение материала делает прежний PASS устаревшим.
+
+Подробности: [протокол independent content-review](curriculum/content-review-protocol.md).
+
 ## Personal fork
 
 Официальный repository хранит чистый курс. Решения, заполненные `answers.json`
