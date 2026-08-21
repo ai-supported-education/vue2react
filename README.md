@@ -1,3 +1,5 @@
+<img width="1774" height="887" alt="ChatGPT Image 21 авг  2026 г , 17_12_53" src="https://github.com/user-attachments/assets/932e074b-f18a-4fc6-ac9d-e1ade7fc838b" />
+
 # React training for a Vue developer
 
 Практический курс по React и его экосистеме для разработчика, знакомого с Vue 3, Composition API и TypeScript.
